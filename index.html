@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>ФэнтазиГрад — Карта участника</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff9f0;--white:#ffffff;--off:#fff4e6;--light:#ffe8cc;
+  --black:#1a1f18;--gray:#6b5a4a;--gray2:#9a8a7a;--border:#f0d9c6;
+  --primary:#ff6b3d;--primary2:#ff8c5a;--primary-dim:rgba(255,107,61,0.08);--primary-border:rgba(255,107,61,0.22);
+  --accent:#4a90e2;--accent2:#6ab0f3;--yellow:#ffc900;--green:#4ade80;--red:#f87171;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;overflow:hidden;}
+body{background:var(--bg);color:var(--black);font-family:'Barlow',sans-serif;display:flex;flex-direction:column;max-width:480px;margin:0 auto;position:relative;}
+
+/* TOP BAR */
+.topbar{background:linear-gradient(135deg,var(--primary),var(--primary2));padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.tb-logo{font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;letter-spacing:1px;}
+.tb-logo span{color:var(--yellow);}
+.tb-sub{font-size:10px;color:rgba(255,255,255,.85);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:1px;}
+.tb-bell{width:36px;height:36px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;position:relative;flex-shrink:0;}
+.tb-bell-dot{position:absolute;top:5px;right:5px;width:8px;height:8px;border-radius:50%;background:var(--yellow);border:2px solid var(--primary);}
+
+/* SCROLL AREA */
+.scroll-area{flex:1;overflow-y:auto;padding-bottom:70px;}
+.scroll-area::-webkit-scrollbar{display:none;}
+
+/* MEMBER CARD */
+.card-section{padding:16px 16px 0;}
+.member-card{background:linear-gradient(135deg,#ff8c5a,#ff6b3d,#e85a2d);border:1px solid rgba(255,107,61,.3);border-radius:16px;padding:22px;position:relative;overflow:hidden;}
+.member-card::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(255,201,0,.3),transparent 70%);pointer-events:none;}
+.member-card::after{content:'ФЭНТАЗИГРАД CLUB';position:absolute;bottom:14px;right:16px;font-family:'Bebas Neue',sans-serif;font-size:9px;color:rgba(255,255,255,.25);letter-spacing:2px;pointer-events:none;}
+.mc-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.mc-brand{font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--yellow);letter-spacing:1px;}
+.mc-level-pill{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:4px 12px;}
+.mc-level-ico{font-size:13px;}
+.mc-level-name{font-size:10px;font-weight:700;color:rgba(255,255,255,.85);text-transform:uppercase;letter-spacing:.5px;}
+.mc-points{font-family:'Bebas Neue',sans-serif;font-size:56px;color:#fff;line-height:.9;margin-bottom:4px;}
+.mc-points-label{font-size:11px;color:rgba(255,255,255,.8);margin-bottom:14px;font-weight:600;}
+.mc-progress-bg{background:rgba(255,255,255,.15);border-radius:100px;height:5px;margin-bottom:5px;}
+.mc-progress{width:62%;background:linear-gradient(90deg,var(--yellow),#ffd700);border-radius:100px;height:5px;position:relative;}
+.mc-progress::after{content:'';position:absolute;right:-1px;top:50%;transform:translateY(-50%);width:9px;height:9px;border-radius:50%;background:#ffd700;box-shadow:0 0 8px rgba(255,215,0,.8);}
+.mc-progress-note{display:flex;justify-content:space-between;font-size:10px;color:rgba(255,255,255,.7);}
+.mc-footer{display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.15);}
+.mc-member{font-family:'Bebas Neue',sans-serif;font-size:16px;color:#fff;letter-spacing:.5px;}
+.mc-id{font-size:10px;color:rgba(255,255,255,.7);letter-spacing:1px;font-family:'Courier New',monospace;}
+
+/* LEVELS */
+.section{padding:14px 16px 0;}
+.section-label{font-size:11px;font-weight:800;color:var(--gray2);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+.levels-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
+.level-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:10px 4px;text-align:center;}
+.level-card.done{background:rgba(74,144,226,.08);border-color:rgba(74,144,226,.25);}
+.level-card.active{background:var(--primary-dim);border-color:var(--primary-border);}
+.level-card.locked{opacity:.5;}
+.lc-ico{font-size:18px;margin-bottom:4px;}
+.lc-name{font-size:9px;font-weight:800;color:var(--gray);text-transform:uppercase;letter-spacing:.3px;}
+.level-card.active .lc-name{color:var(--primary);}
+.level-card.done .lc-name{color:var(--accent);}
+.lc-range{font-size:8px;color:var(--gray2);margin-top:2px;}
+
+/* ACTIONS */
+.actions-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:14px 16px 0;}
+.action-btn{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px 12px;text-align:center;cursor:pointer;transition:all .2s;text-decoration:none;}
+.action-btn:hover{border-color:var(--primary-border);background:var(--primary-dim);}
+.ab-ico{font-size:22px;margin-bottom:6px;}
+.ab-title{font-size:12px;font-weight:800;color:var(--black);}
+.ab-sub{font-size:10px;color:var(--gray2);margin-top:2px;}
+
+/* TABS */
+.tabs-wrap{padding:14px 16px 0;}
+.tabs{display:flex;background:var(--white);border:1px solid var(--border);border-radius:8px;padding:3px;}
+.tab{flex:1;padding:8px;text-align:center;border-radius:6px;font-size:12px;font-weight:800;color:var(--gray);cursor:pointer;transition:all .2s;text-transform:uppercase;letter-spacing:.5px;}
+.tab.active{background:var(--primary);color:#fff;}
+.tab-content{display:none;padding:12px 16px 0;}
+.tab-content.active{display:block;}
+
+/* HISTORY */
+.hist-list{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.hist-item{display:flex;align-items:center;gap:12px;padding:13px 14px;border-bottom:1px solid var(--border);}
+.hist-item:last-child{border-bottom:none;}
+.hi-ico{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.hi-ico.profession{background:var(--primary-dim);}
+.hi-ico.quest{background:rgba(74,144,226,.1);}
+.hi-ico.bonus{background:rgba(74,222,128,.1);}
+.hi-ico.birthday{background:rgba(255,201,0,.15);}
+.hi-body{flex:1;}
+.hi-name{font-size:13px;font-weight:700;color:var(--black);}
+.hi-date{font-size:10px;color:var(--gray2);margin-top:1px;}
+.hi-pts{font-family:'Bebas Neue',sans-serif;font-size:16px;}
+.hi-pts.plus{color:var(--green);}
+.hi-pts.minus{color:var(--red);}
+
+/* PROMOS */
+.promo-list{display:flex;flex-direction:column;gap:8px;}
+.promo-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:14px;display:flex;gap:12px;align-items:flex-start;}
+.promo-card.hot{border-color:var(--primary-border);background:var(--primary-dim);}
+.pc-ico{width:40px;height:40px;background:var(--off);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.pc-body{flex:1;}
+.pc-title{font-size:13px;font-weight:800;color:var(--black);margin-bottom:3px;}
+.pc-desc{font-size:12px;color:var(--gray);line-height:1.5;margin-bottom:6px;}
+.pc-badge{display:inline-block;font-size:10px;font-weight:800;padding:3px 8px;border-radius:100px;}
+.pc-badge.primary{background:var(--primary-dim);color:var(--primary);}
+.pc-badge.yellow{background:rgba(255,201,0,.15);color:#a07000;}
+.pc-badge.blue{background:rgba(74,144,226,.1);color:var(--accent);}
+.pc-timer{font-size:10px;color:var(--gray2);margin-top:4px;}
+
+/* PERKS */
+.perks-list{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.perk-item{display:flex;align-items:center;gap:12px;padding:13px 14px;border-bottom:1px solid var(--border);}
+.perk-item:last-child{border-bottom:none;}
+.perk-ico{font-size:20px;width:32px;text-align:center;flex-shrink:0;}
+.perk-body{flex:1;}
+.perk-title{font-size:13px;font-weight:700;color:var(--black);}
+.perk-desc{font-size:11px;color:var(--gray2);margin-top:1px;}
+.perk-status{font-size:11px;font-weight:800;}
+.perk-status.active{color:var(--green);}
+.perk-status.locked{color:var(--gray2);}
+
+/* QR SECTION */
+.qr-section{padding:14px 16px 0;}
+.qr-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:24px;text-align:center;}
+.qr-box{width:150px;height:150px;background:var(--primary);border-radius:10px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.qr-inner{display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:repeat(7,1fr);gap:2px;width:120px;height:120px;}
+.qr-cell{border-radius:1px;}
+.qr-box-corner{position:absolute;border:3px solid #fff;width:28px;height:28px;border-radius:3px;}
+.qr-box-corner.tl{top:12px;left:12px;border-right:none;border-bottom:none;}
+.qr-box-corner.tr{top:12px;right:12px;border-left:none;border-bottom:none;}
+.qr-box-corner.bl{bottom:12px;left:12px;border-right:none;border-top:none;}
+.qr-center{position:absolute;width:50px;height:50px;border:2px solid rgba(255,255,255,.2);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:11px;color:rgba(255,255,255,.6);letter-spacing:1px;}
+.qr-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:var(--black);margin-bottom:6px;}
+.qr-desc{font-size:12px;color:var(--gray);line-height:1.5;margin-bottom:14px;}
+.qr-id{font-family:'Courier New',monospace;font-size:11px;color:var(--gray2);letter-spacing:2px;margin-bottom:16px;}
+.qr-actions{display:flex;gap:8px;justify-content:center;}
+.qr-btn{padding:10px 20px;border-radius:6px;font-family:'Barlow',sans-serif;font-weight:800;font-size:13px;border:none;cursor:pointer;text-transform:uppercase;letter-spacing:.5px;}
+.qr-btn.primary{background:var(--primary);color:#fff;}
+.qr-btn.secondary{background:var(--off);color:var(--black);border:1px solid var(--border);}
+
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--white);border-top:2px solid var(--border);display:flex;z-index:100;}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px 12px;cursor:pointer;}
+.bn-ico{font-size:20px;line-height:1;}
+.bn-label{font-size:9px;font-weight:800;color:var(--gray2);text-transform:uppercase;letter-spacing:.5px;}
+.bn-item.active .bn-label{color:var(--primary);}
+
+/* NOTIFY SHEET */
+.sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;display:none;align-items:flex-end;justify-content:center;}
+.sheet-overlay.open{display:flex;}
+.sheet{background:#fff;border-radius:16px 16px 0 0;padding:24px 24px 36px;width:100%;max-width:480px;}
+.sheet-handle{width:40px;height:4px;background:var(--border);border-radius:100px;margin:0 auto 20px;}
+.sheet-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;margin-bottom:8px;}
+.sheet-desc{font-size:13px;color:var(--gray);margin-bottom:20px;line-height:1.6;}
+.sheet-btn{width:100%;background:var(--primary);color:#fff;font-family:'Barlow',sans-serif;font-weight:800;font-size:14px;padding:14px;border:none;cursor:pointer;border-radius:6px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;}
+.sheet-btn-sec{width:100%;background:var(--off);color:var(--gray);font-family:'Barlow',sans-serif;font-weight:700;font-size:14px;padding:12px;border:1px solid var(--border);cursor:pointer;border-radius:6px;}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div>
+    <div class="tb-logo"><span>ФЭНТАЗИ</span>ГРАД</div>
+    <div class="tb-sub">Парк профессий</div>
+  </div>
+  <div class="tb-bell" onclick="openSheet()">
+    🔔
+    <div class="tb-bell-dot"></div>
+  </div>
+</div>
+
+<!-- SCROLL -->
+<div class="scroll-area" id="scroll">
+
+  <!-- MEMBER CARD -->
+  <div class="card-section">
+    <div class="member-card">
+      <div class="mc-header">
+        <div class="mc-brand">ФЭНТАЗИГРАД</div>
+        <div class="mc-level-pill">
+          <div class="mc-level-ico">⭐</div>
+          <div class="mc-level-name">Исследователь</div>
+        </div>
+      </div>
+      <div class="mc-points">1 240</div>
+      <div class="mc-points-label">баллов опыта</div>
+      <div class="mc-progress-bg"><div class="mc-progress"></div></div>
+      <div class="mc-progress-note"><span>1 240 / 2 000</span><span>До Мастера: 760 баллов</span></div>
+      <div class="mc-footer">
+        <div class="mc-member">Анна + ребёнок</div>
+        <div class="mc-id">FGD · 2025 · 1240</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEVELS -->
+  <div class="section">
+    <div class="section-label">Уровни мастера</div>
+    <div class="levels-grid">
+      <div class="level-card done"><div class="lc-ico">🌟</div><div class="lc-name">Гость</div><div class="lc-range">0–499</div></div>
+      <div class="level-card active"><div class="lc-ico">⭐</div><div class="lc-name">Исследователь</div><div class="lc-range">500–1999</div></div>
+      <div class="level-card"><div class="lc-ico">🏅</div><div class="lc-name">Мастер</div><div class="lc-range">2000–4999</div></div>
+      <div class="level-card locked"><div class="lc-ico">👑</div><div class="lc-name">Эксперт</div><div class="lc-range">5000+</div></div>
+    </div>
+  </div>
+
+  <!-- QUICK ACTIONS -->
+  <div class="actions-grid">
+    <div class="action-btn" onclick="showTab('tab-qr')">
+      <div class="ab-ico">📲</div>
+      <div class="ab-title">Мой QR-код</div>
+      <div class="ab-sub">Показать на входе</div>
+    </div>
+    <div class="action-btn" onclick="showTab('tab-promos')">
+      <div class="ab-ico">🎁</div>
+      <div class="ab-title">Акции</div>
+      <div class="ab-sub">3 активных</div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs-wrap">
+    <div class="tabs">
+      <div class="tab active" onclick="showTab('tab-hist')">История</div>
+      <div class="tab" onclick="showTab('tab-promos')">Акции</div>
+      <div class="tab" onclick="showTab('tab-perks')">Привилегии</div>
+      <div class="tab" onclick="showTab('tab-qr')">QR-код</div>
+    </div>
+  </div>
+
+  <!-- ИСТОРИЯ -->
+  <div class="tab-content active" id="tab-hist">
+    <div class="hist-list">
+      <div class="hist-item">
+        <div class="hi-ico profession">👨‍🍳</div>
+        <div class="hi-body"><div class="hi-name">Профессия: Повар</div><div class="hi-date">Сегодня, 15:20</div></div>
+        <div class="hi-pts plus">+100</div>
+      </div>
+      <div class="hist-item">
+        <div class="hi-ico quest">🗝️</div>
+        <div class="hi-body"><div class="hi-name">Квест: Тайна замка</div><div class="hi-date">12 апр 2026</div></div>
+        <div class="hi-pts plus">+150</div>
+      </div>
+      <div class="hist-item">
+        <div class="hi-ico profession">👩‍⚕️</div>
+        <div class="hi-body"><div class="hi-name">Профессия: Врач</div><div class="hi-date">10 апр 2026</div></div>
+        <div class="hi-pts plus">+100</div>
+      </div>
+      <div class="hist-item">
+        <div class="hi-ico bonus">🎟️</div>
+        <div class="hi-body"><div class="hi-name">Бесплатный мастер-класс</div><div class="hi-date">5 апр 2026</div></div>
+        <div class="hi-pts minus">−200</div>
+      </div>
+      <div class="hist-item">
+        <div class="hi-ico birthday">🎂</div>
+        <div class="hi-body"><div class="hi-name">Бонус день рождения ×3</div><div class="hi-date">1 апр 2026</div></div>
+        <div class="hi-pts plus">+300</div>
+      </div>
+      <div class="hist-item">
+        <div class="hi-ico profession">🚒</div>
+        <div class="hi-body"><div class="hi-name">Профессия: Пожарный</div><div class="hi-date">28 мар 2026</div></div>
+        <div class="hi-pts plus">+100</div>
+      </div>
+      <div class="hist-item">
+        <div class="hi-ico profession">🎨</div>
+        <div class="hi-body"><div class="hi-name">Профессия: Художник</div><div class="hi-date">20 мар 2026</div></div>
+        <div class="hi-pts plus">+100</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- АКЦИИ -->
+  <div class="tab-content" id="tab-promos">
+    <div class="promo-list">
+      <div class="promo-card hot">
+        <div class="pc-ico">⚡</div>
+        <div class="pc-body">
+          <div class="pc-title">Двойные баллы по выходным</div>
+          <div class="pc-desc">Каждую субботу и воскресенье апреля — ×2 балла за каждую профессию</div>
+          <div class="pc-badge primary">Активна сейчас</div>
+          <div class="pc-timer">⏱ До 30 апреля 2026</div>
+        </div>
+      </div>
+      <div class="promo-card">
+        <div class="pc-ico">🎂</div>
+        <div class="pc-body">
+          <div class="pc-title">×3 балла в день рождения</div>
+          <div class="pc-desc">Тройное начисление + бесплатный мастер-класс в подарок имениннику</div>
+          <div class="pc-badge yellow">Постоянная</div>
+        </div>
+      </div>
+      <div class="promo-card">
+        <div class="pc-ico">👥</div>
+        <div class="pc-body">
+          <div class="pc-title">Приведи друга — +200 баллов</div>
+          <div class="pc-desc">Поделись ссылкой на парк. Когда друг купит первый билет — оба получают бонус</div>
+          <div class="pc-badge blue">+200 баллов</div>
+          <div class="pc-timer">⏱ До 1 мая 2026</div>
+        </div>
+      </div>
+      <div class="promo-card">
+        <div class="pc-ico">🎓</div>
+        <div class="pc-body">
+          <div class="pc-title">5 профессий = мастер-класс бесплатно</div>
+          <div class="pc-desc">Попробуй 5 разных профессий и получи бесплатный мастер-класс. Доступно с уровня Исследователь</div>
+          <div class="pc-badge primary">Для Исследователя и выше</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ПРИВИЛЕГИИ -->
+  <div class="tab-content" id="tab-perks">
+    <div class="perks-list">
+      <div class="perk-item">
+        <div class="perk-ico">🎟️</div>
+        <div class="perk-body"><div class="perk-title">Бесплатный мастер-класс за 200 баллов</div><div class="perk-desc">Обменяйте накопленные баллы на участие</div></div>
+        <div class="perk-status active">Доступно</div>
+      </div>
+      <div class="perk-item">
+        <div class="perk-ico">🎂</div>
+        <div class="perk-body"><div class="perk-title">×3 балла в день рождения</div><div class="perk-desc">Плюс бесплатный мастер-класс в подарок</div></div>
+        <div class="perk-status active">Активно</div>
+      </div>
+      <div class="perk-item">
+        <div class="perk-ico">⚡</div>
+        <div class="perk-body"><div class="perk-title">Двойные баллы по выходным</div><div class="perk-desc">×2 в течение апреля</div></div>
+        <div class="perk-status active">Активно</div>
+      </div>
+      <div class="perk-item">
+        <div class="perk-ico">📣</div>
+        <div class="perk-body"><div class="perk-title">Ранний доступ к новым профессиям</div><div class="perk-desc">Push за 24 часа до открытия</div></div>
+        <div class="perk-status active">Активно</div>
+      </div>
+      <div class="perk-item">
+        <div class="perk-ico">🏷️</div>
+        <div class="perk-body"><div class="perk-title">Скидка 10% · Уровень Мастер</div><div class="perk-desc">Постоянная скидка на все билеты</div></div>
+        <div class="perk-status locked">С 2000 баллов</div>
+      </div>
+      <div class="perk-item">
+        <div class="perk-ico">👑</div>
+        <div class="perk-body"><div class="perk-title">Скидка 15% · Уровень Эксперт</div><div class="perk-desc">Приоритетный вход без очереди</div></div>
+        <div class="perk-status locked">С 5000 баллов</div>
+      </div>
+      <div class="perk-item">
+        <div class="perk-ico">🎓</div>
+        <div class="perk-body"><div class="perk-title">Закрытые мастер-классы</div><div class="perk-desc">Доступ к эксклюзивным активностям</div></div>
+        <div class="perk-status active">Доступно</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QR -->
+  <div class="tab-content" id="tab-qr">
+    <div class="qr-section" style="padding-top:0;">
+      <div class="qr-card">
+        <div class="qr-box">
+          <div class="qr-box-corner tl"></div>
+          <div class="qr-box-corner tr"></div>
+          <div class="qr-box-corner bl"></div>
+          <div class="qr-center">FGD</div>
+        </div>
+        <div class="qr-title">Предъявите на входе</div>
+        <div class="qr-desc">Покажите этот экран администратору для начисления баллов или использования бонусов</div>
+        <div class="qr-id">FGD · 2025 · 1240</div>
+        <div class="qr-actions">
+          <button class="qr-btn primary">📲 На экран</button>
+          <button class="qr-btn secondary">📤 Поделиться</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /scroll-area -->
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <div class="bn-item active" onclick="showPage('card')">
+    <div class="bn-ico">💳</div>
+    <div class="bn-label">Карта</div>
+  </div>
+  <div class="bn-item" onclick="showPage('promos')">
+    <div class="bn-ico">🎁</div>
+    <div class="bn-label">Акции</div>
+  </div>
+  <div class="bn-item" onclick="showPage('perks')">
+    <div class="bn-ico">👑</div>
+    <div class="bn-label">Привилегии</div>
+  </div>
+  <div class="bn-item" onclick="showPage('qr')">
+    <div class="bn-ico">📲</div>
+    <div class="bn-label">QR-код</div>
+  </div>
+</div>
+
+<!-- NOTIFY SHEET -->
+<div class="sheet-overlay" id="sheet">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">Включить уведомления</div>
+    <div class="sheet-desc">Получайте уведомления о новых профессиях, акциях и начислении баллов — первыми, до публичного анонса</div>
+    <button class="sheet-btn" onclick="closeSheet()">🔔 Включить уведомления</button>
+    <button class="sheet-btn-sec" onclick="closeSheet()">Позже</button>
+  </div>
+</div>
+
+<script>
+// TABS
+function showTab(id) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const map = {'tab-hist':0,'tab-promos':1,'tab-perks':2,'tab-qr':3};
+  document.querySelectorAll('.tab')[map[id]]?.classList.add('active');
+  document.getElementById('scroll').scrollTo({top:0,behavior:'smooth'});
+}
+
+// BOTTOM NAV → TABS
+function showPage(p) {
+  document.querySelectorAll('.bn-item').forEach(b => b.classList.remove('active'));
+  const map = {card:'tab-hist',promos:'tab-promos',perks:'tab-perks',qr:'tab-qr'};
+  const idx = {card:0,promos:1,perks:2,qr:3};
+  showTab(map[p]);
+  document.querySelectorAll('.bn-item')[idx[p]]?.classList.add('active');
+}
+
+// SHEET
+function openSheet(){document.getElementById('sheet').classList.add('open');}
+function closeSheet(){document.getElementById('sheet').classList.remove('open');}
+document.getElementById('sheet').addEventListener('click',function(e){if(e.target===this)closeSheet();});
+</script>
+</body>
+</html>
