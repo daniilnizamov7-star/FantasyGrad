@@ -1,603 +1,335 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>ЛяМурЧик • Digital Club</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #1a2e1a;
-            --primary: #4caf50;
-            --accent: #ffd700;
-            --text-light: #ffffff;
-            --text-muted: #a8c5a8;
-            --glass-bg: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.15);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#273025">
+  <title>ФэнтазиГрад • Цифровой паспорт жителя</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #273025;
+      --surface: #1e251d;
+      --primary: #428f4d;
+      --primary-glow: rgba(66, 143, 77, 0.4);
+      --accent: #d4a017; /* Золото королевства */
+      --text: #ffffff;
+      --text-muted: #a1a1a1;
+      --border: #3a463a;
+      --radius: 18px;
+      --nav-height: 70px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: 'Manrope', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-bottom: calc(var(--nav-height) + 20px);
+      -webkit-font-smoothing: antialiased;
+    }
+    /* HEADER */
+    .app-header { padding: 24px 20px 10px; text-align: center; position: relative; }
+    .app-header h1 { font-size: 22px; font-weight: 700; letter-spacing: 0.5px; }
+    .app-header span { color: var(--primary); }
+    .app-header::after {
+      content: ''; position: absolute; bottom: 0; left: 20px; right: 20px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+    /* TABS */
+    .tab-content { display: none; padding: 16px 20px; animation: fadeIn 0.3s ease; }
+    .tab-content.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
-        body {
-            font-family: 'Manrope', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-light);
-            overflow-x: hidden;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    /* LOYALTY CARD */
+    .card-wrapper { perspective: 1200px; margin: 24px auto 16px; max-width: 350px; }
+    .loyalty-card {
+      width: 100%; aspect-ratio: 1.58/1;
+      background: linear-gradient(145deg, var(--primary), #2d6a37);
+      border-radius: var(--radius);
+      position: relative; overflow: hidden;
+      box-shadow: 0 12px 35px var(--primary-glow);
+      transform-style: preserve-3d; transition: transform 0.7s cubic-bezier(0.4,0.2,0.2,1);
+      cursor: pointer; border: 1px solid rgba(255,255,255,0.1);
+    }
+    .loyalty-card.flipped { transform: rotateY(180deg); }
+    
+    .card-face {
+      position: absolute; inset: 0; backface-visibility: hidden;
+      padding: 22px; display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .card-back { 
+      transform: rotateY(180deg); 
+      background: var(--surface); 
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center; flex-direction: column;
+    }
+    .card-top { display: flex; justify-content: space-between; align-items: center; }
+    .brand { font-weight: 700; font-size: 15px; letter-spacing: 0.5px; }
+    .brand span { color: var(--accent); }
+    .level-badge { 
+      background: rgba(212, 160, 23, 0.15); color: var(--accent); 
+      padding: 5px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; border: 1px solid rgba(212, 160, 23, 0.3);
+    }
+    .points-display { text-align: center; margin: 10px 0; }
+    .points-value { font-size: 46px; font-weight: 700; line-height: 1; letter-spacing: -1px; }
+    .points-label { font-size: 13px; color: rgba(255,255,255,0.65); margin-top: 4px; font-weight: 500; }
+    .progress-wrap { margin-top: 4px; }
+    .progress-bar { height: 5px; background: rgba(255,255,255,0.15); border-radius: 3px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 62%; background: var(--accent); border-radius: 3px; box-shadow: 0 0 10px var(--accent); }
+    .progress-note { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 8px; display: flex; justify-content: space-between; font-weight: 500; }
+    
+    .qr-section { text-align: center; }
+    .qr-box { 
+      width: 110px; height: 110px; background: #fff; margin: 0 auto 14px; 
+      border-radius: 14px; display: flex; align-items: center; justify-content: center; 
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    .qr-svg { width: 85px; height: 85px; }
+    .qr-hint { font-size: 13px; color: var(--text-muted); margin-top: 6px; }
+    .tap-hint { font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 10px; opacity: 0.7; }
 
-        /* Background Animation */
-        .bg-glow {
-            position: fixed;
-            top: -20%;
-            left: -20%;
-            width: 140vw;
-            height: 140vh;
-            background: radial-gradient(circle at center, rgba(76, 175, 80, 0.15) 0%, transparent 60%);
-            z-index: -1;
-            pointer-events: none;
-            animation: pulse 8s infinite ease-in-out;
-        }
+    /* SECTIONS */
+    .section-title { font-size: 18px; font-weight: 600; margin: 24px 0 14px; display: flex; align-items: center; gap: 8px; }
+    .section-title::before { content: ''; width: 3px; height: 18px; background: var(--primary); border-radius: 2px; }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-        }
+    .quest-grid { display: grid; gap: 12px; }
+    .quest-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+      padding: 16px; display: flex; align-items: center; gap: 14px; transition: 0.2s;
+    }
+    .quest-card:active { transform: scale(0.98); background: #232b23; }
+    .quest-icon { 
+      width: 42px; height: 42px; background: rgba(66,143,77,0.15); 
+      border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
+    }
+    .quest-info { flex: 1; }
+    .quest-title { font-weight: 600; font-size: 15px; margin-bottom: 2px; }
+    .quest-desc { font-size: 12px; color: var(--text-muted); }
+    .quest-reward { font-weight: 700; color: var(--accent); font-size: 15px; background: rgba(212,160,23,0.1); padding: 4px 8px; border-radius: 8px; }
 
-        /* Header */
-        header {
-            width: 100%;
-            padding: 20px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(10px);
-            background: rgba(26, 46, 26, 0.8);
-            position: fixed;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid var(--glass-border);
-        }
+    /* HISTORY */
+    .history-list { display: flex; flex-direction: column; gap: 10px; }
+    .history-item {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 14px; display: flex; justify-content: space-between; align-items: center;
+    }
+    .history-left { display: flex; align-items: center; gap: 12px; }
+    .history-icon { 
+      width: 38px; height: 38px; background: #2a362a; border-radius: 10px; 
+      display: flex; align-items: center; justify-content: center; font-size: 18px;
+    }
+    .history-name { font-weight: 500; font-size: 14px; margin-bottom: 2px; }
+    .history-date { font-size: 11px; color: var(--text-muted); }
+    .history-points { font-weight: 700; font-size: 15px; }
+    .positive { color: var(--primary); }
+    .negative { color: #e74c3c; }
 
-        .logo {
-            font-weight: 800;
-            font-size: 20px;
-            letter-spacing: -0.5px;
-        }
-        .logo span { color: var(--primary); }
+    /* PROFILE */
+    .profile-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 24px; text-align: center; margin-bottom: 24px; position: relative; overflow: hidden;
+    }
+    .profile-card::before {
+      content: ''; position: absolute; top: -50px; right: -50px; width: 120px; height: 120px;
+      background: radial-gradient(circle, var(--primary-glow), transparent 70%);
+    }
+    .avatar { font-size: 48px; margin-bottom: 12px; display: inline-block; }
+    .user-name { font-weight: 700; font-size: 20px; margin-bottom: 4px; }
+    .user-level { font-size: 13px; color: var(--accent); font-weight: 600; background: rgba(212,160,23,0.1); display: inline-block; padding: 4px 10px; border-radius: 20px; }
+    
+    .privileges-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .privilege-item {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 14px; text-align: center;
+    }
+    .privilege-icon { font-size: 24px; margin-bottom: 6px; }
+    .privilege-text { font-size: 12px; color: var(--text-muted); }
 
-        .header-btn {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            color: var(--text-light);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .header-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
-
-        /* Main Content */
-        main {
-            margin-top: 80px;
-            width: 100%;
-            max-width: 480px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            perspective: 1000px; /* Essential for 3D flip */
-        }
-
-        .welcome-text {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .welcome-text h1 {
-            font-size: 28px;
-            margin-bottom: 8px;
-            background: linear-gradient(90deg, #fff, #a8c5a8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .welcome-text p {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        /* CARD CONTAINER */
-        .card-scene {
-            width: 100%;
-            height: 220px;
-            margin-bottom: 40px;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .card-object {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            transform-style: preserve-3d;
-            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .card-object.is-flipped {
-            transform: rotateY(180deg);
-        }
-
-        .card-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 24px;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-            overflow: hidden;
-        }
-
-        /* Glassmorphism Front */
-        .card-front {
-            background: linear-gradient(135deg, rgba(45, 76, 45, 0.9), rgba(26, 46, 26, 0.95));
-            backdrop-filter: blur(15px);
-        }
-        
-        /* Decorative circles */
-        .card-front::before {
-            content: '';
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
-            opacity: 0.3;
-            filter: blur(20px);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-        .club-name {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .chip-icon {
-            width: 40px;
-            height: 30px;
-            background: linear-gradient(135deg, #d4af37, #f2d06b);
-            border-radius: 6px;
-            opacity: 0.8;
-        }
-
-        .member-info {
-            z-index: 2;
-        }
-        .member-name {
-            font-size: 26px;
-            font-weight: 800;
-            margin-bottom: 4px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-        .member-status {
-            font-size: 13px;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--accent);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent);
-        }
-
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            z-index: 2;
-        }
-        .points-display {
-            text-align: right;
-        }
-        .points-value {
-            font-size: 32px;
-            font-weight: 800;
-            color: var(--text-light);
-            line-height: 1;
-        }
-        .points-label {
-            font-size: 11px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-        }
-
-        /* Glassmorphism Back */
-        .card-back {
-            background: linear-gradient(135deg, rgba(20, 35, 20, 0.95), rgba(10, 20, 10, 0.98));
-            transform: rotateY(180deg);
-        }
-
-        .qr-container {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .qr-box {
-            width: 100px;
-            height: 100px;
-            background: white;
-            padding: 8px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        /* Fake QR Code SVG */
-        .qr-code-svg { width: 100%; height: 100%; }
-
-        .benefits {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding-bottom: 10px;
-        }
-        .benefit-tag {
-            background: rgba(255,255,255,0.1);
-            padding: 6px 12px;
-            border-radius: 12px;
-            font-size: 11px;
-            white-space: nowrap;
-        }
-
-        /* Progress Section */
-        .progress-section {
-            width: 100%;
-            margin-bottom: 40px;
-        }
-        .section-label {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .progress-bar-bg {
-            width: 100%;
-            height: 8px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-        }
-        .progress-bar-fill {
-            height: 100%;
-            width: 65%;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            border-radius: 10px;
-            box-shadow: 0 0 15px var(--primary);
-            position: relative;
-        }
-        .progress-glow {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 10px;
-            height: 100%;
-            background: rgba(255,255,255,0.8);
-            filter: blur(4px);
-        }
-
-        .levels-grid {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 12px;
-        }
-        .level-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-        }
-        .level-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-        }
-        .level-item.active .level-icon {
-            background: var(--primary);
-            color: #fff;
-            border-color: var(--primary);
-            box-shadow: 0 0 10px var(--primary);
-        }
-        .level-name {
-            font-size: 10px;
-            color: var(--text-muted);
-        }
-        .level-item.active .level-name { color: #fff; }
-
-        /* QR Button */
-        .qr-btn {
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(90deg, #3d8b40, #2e6e31);
-            border: none;
-            border-radius: 16px;
-            color: white;
-            font-size: 16px;
-            font-weight: 700;
-            font-family: 'Manrope', sans-serif;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.3);
-            transition: transform 0.2s;
-            margin-bottom: 100px; /* Space for footer */
-        }
-        .qr-btn:active { transform: scale(0.98); }
-        .qr-btn::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            animation: shimmer 2s infinite;
-        }
-        @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        /* Modal for QR */
-        .modal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
-            z-index: 200;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: 0.3s;
-        }
-        .modal.active { opacity: 1; pointer-events: all; }
-        .modal-content {
-            background: #1e331e;
-            width: 90%;
-            max-width: 340px;
-            padding: 30px;
-            border-radius: 24px;
-            text-align: center;
-            border: 1px solid var(--glass-border);
-            transform: translateY(20px);
-            transition: 0.3s;
-        }
-        .modal.active .modal-content { transform: translateY(0); }
-        
-        .modal-qr {
-            background: white;
-            width: 180px;
-            height: 180px;
-            margin: 20px auto;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: white;
-            font-size: 24px;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
-        /* Footer hint */
-        .hint {
-            position: fixed;
-            bottom: 20px;
-            left: 0; width: 100%;
-            text-align: center;
-            font-size: 12px;
-            color: var(--text-muted);
-            pointer-events: none;
-            animation: bounce 2s infinite;
-        }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-    </style>
+    /* BOTTOM NAV */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: rgba(30, 37, 29, 0.95); backdrop-filter: blur(10px);
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-around; padding: 10px 0 24px;
+      z-index: 100;
+    }
+    .nav-item {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      color: var(--text-muted); font-size: 10px; font-weight: 600; cursor: pointer; transition: 0.2s;
+      padding: 4px 12px; border-radius: 12px;
+    }
+    .nav-item.active { color: var(--primary); background: rgba(66,143,77,0.1); }
+    .nav-icon { font-size: 22px; margin-bottom: 2px; }
+  </style>
 </head>
 <body>
 
-    <div class="bg-glow"></div>
+  <div class="app-header">
+    <h1>Фэнтази<span>Град</span></h1>
+  </div>
 
-    <header>
-        <div class="logo">ЛяМур<span>Чик</span></div>
-        <button class="header-btn">Демо</button>
-    </header>
-
-    <main>
-        <div class="welcome-text">
-            <h1>Твоя карта</h1>
-            <p>Нажми на карту, чтобы увидеть бонусы</p>
+  <!-- TAB: CARD -->
+  <div class="tab-content active" id="tab-card">
+    <div class="card-wrapper">
+      <div class="loyalty-card" onclick="this.classList.toggle('flipped')">
+        <div class="card-face">
+          <div class="card-top">
+            <div class="brand">ФЭНТАЗИ<span>ГРАД</span></div>
+            <div class="level-badge">Ученик</div>
+          </div>
+          <div class="points-display">
+            <div class="points-value">1 240</div>
+            <div class="points-label">королевских монет</div>
+          </div>
+          <div class="progress-wrap">
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+            <div class="progress-note"><span>1 240 / 2 000</span><span>До Мастера</span></div>
+          </div>
         </div>
-
-        <!-- 3D Card -->
-        <div class="card-scene" onclick="flipCard()">
-            <div class="card-object" id="card">
-                <!-- Front -->
-                <div class="card-face card-front">
-                    <div class="card-header">
-                        <div class="club-name">Loyalty Club</div>
-                        <div class="chip-icon"></div>
-                    </div>
-                    <div class="member-info">
-                        <div class="member-name">Мария</div>
-                        <div class="member-status">
-                            <div class="status-dot"></div>
-                            Друг Зоопарка
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <div style="font-size: 11px; color: #a8c5a8;">
-                            7842 •••• 1593
-                        </div>
-                        <div class="points-display">
-                            <div class="points-value">1 240</div>
-                            <div class="points-label">баллов</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Back -->
-                <div class="card-face card-back">
-                    <div class="qr-container">
-                        <div class="qr-box">
-                            <svg class="qr-code-svg" viewBox="0 0 100 100">
-                                <path d="M10,10 h30 v30 h-30 z M60,10 h30 v30 h-30 z M10,60 h30 v30 h-30 z" fill="black" fill-rule="evenodd"/>
-                                <path d="M15,15 h20 v20 h-20 z M65,15 h20 v20 h-20 z M15,65 h20 v20 h-20 z" fill="white"/>
-                                <rect x="20" y="20" width="10" height="10" fill="black"/>
-                                <rect x="70" y="20" width="10" height="10" fill="black"/>
-                                <rect x="20" y="70" width="10" height="10" fill="black"/>
-                                <path d="M60,60 h30 v30 h-30 z M50,50 h40 v40 h-40 z" fill="black" fill-rule="evenodd" opacity="0.5"/>
-                                <path d="M65,65 h20 v20 h-20 z" fill="black"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="benefits">
-                        <div class="benefit-tag">🎁 -10% Корм</div>
-                        <div class="benefit-tag">🎟️ Бесплатный вход</div>
-                        <div class="benefit-tag">⭐ Приоритет</div>
-                    </div>
-                </div>
+        <div class="card-face card-back">
+          <div class="qr-section">
+            <div class="qr-box">
+              <svg class="qr-svg" viewBox="0 0 100 100" fill="#000">
+                <rect x="10" y="10" width="25" height="25" rx="4"/>
+                <rect x="65" y="10" width="25" height="25" rx="4"/>
+                <rect x="10" y="65" width="25" height="25" rx="4"/>
+                <rect x="45" y="10" width="10" height="10" rx="2"/>
+                <rect x="45" y="65" width="10" height="10" rx="2"/>
+                <rect x="65" y="65" width="25" height="25" rx="4"/>
+                <rect x="45" y="45" width="10" height="10" rx="2"/>
+                <rect x="15" y="45" width="10" height="10" rx="2"/>
+                <rect x="65" y="45" width="10" height="10" rx="2"/>
+              </svg>
             </div>
+            <div style="font-weight:600; margin-bottom:4px; font-size:14px;">Покажи на кассе</div>
+            <div style="font-size:12px; color:var(--text-muted);">ID: FG-2024-8842</div>
+          </div>
         </div>
-
-        <!-- Progress -->
-        <div class="progress-section">
-            <div class="section-label">
-                <span>Уровень 2/5</span>
-                <span>760 до Любителя</span>
-            </div>
-            <div class="progress-bar-bg">
-                <div class="progress-bar-fill">
-                    <div class="progress-glow"></div>
-                </div>
-            </div>
-            <div class="levels-grid">
-                <div class="level-item">
-                    <div class="level-icon">🌱</div>
-                    <div class="level-name">Гость</div>
-                </div>
-                <div class="level-item active">
-                    <div class="level-icon">🐰</div>
-                    <div class="level-name">Друг</div>
-                </div>
-                <div class="level-item">
-                    <div class="level-icon">🦙</div>
-                    <div class="level-name">Любитель</div>
-                </div>
-                <div class="level-item">
-                    <div class="level-icon">🦁</div>
-                    <div class="level-name">Хранитель</div>
-                </div>
-            </div>
-        </div>
-
-        <button class="qr-btn" onclick="openModal()">Показать QR-код</button>
-    </main>
-
-    <!-- QR Modal -->
-    <div class="modal" id="qrModal">
-        <button class="close-modal" onclick="closeModal()">×</button>
-        <div class="modal-content">
-            <h2 style="font-size: 20px; margin-bottom: 10px;">Покажи на входе</h2>
-            <p style="color: var(--text-muted); font-size: 14px;">Отсканируй код, чтобы начислить баллы</p>
-            <div class="modal-qr">
-                <svg class="qr-code-svg" style="width: 140px; height: 140px;" viewBox="0 0 100 100">
-                    <path d="M10,10 h30 v30 h-30 z M60,10 h30 v30 h-30 z M10,60 h30 v30 h-30 z" fill="black" fill-rule="evenodd"/>
-                    <path d="M15,15 h20 v20 h-20 z M65,15 h20 v20 h-20 z M15,65 h20 v20 h-20 z" fill="white"/>
-                    <rect x="20" y="20" width="10" height="10" fill="black"/>
-                    <rect x="70" y="20" width="10" height="10" fill="black"/>
-                    <rect x="20" y="70" width="10" height="10" fill="black"/>
-                    <path d="M60,60 h30 v30 h-30 z M50,50 h40 v40 h-40 z" fill="black" fill-rule="evenodd" opacity="0.5"/>
-                    <path d="M65,65 h20 v20 h-20 z" fill="black"/>
-                </svg>
-            </div>
-            <p style="margin-top: 20px; font-size: 12px; color: var(--primary);">ID: 7842-1593</p>
-        </div>
+      </div>
+      <div class="tap-hint">Нажми на карту, чтобы увидеть QR-код</div>
     </div>
 
-    <div class="hint">⬇ Листай вниз ⬇</div>
+    <div class="section-title">Активные квесты</div>
+    <div class="quest-grid">
+      <div class="quest-card">
+        <div class="quest-icon">🧪</div>
+        <div class="quest-info">
+          <div class="quest-title">Зельеварение в лаборатории</div>
+          <div class="quest-desc">Создай 3 зелья и получи награду</div>
+        </div>
+        <div class="quest-reward">+150</div>
+      </div>
+      <div class="quest-card">
+        <div class="quest-icon">🛡️</div>
+        <div class="quest-info">
+          <div class="quest-title">Посети кузницу</div>
+          <div class="quest-desc">Попробуй себя в роли кузнеца</div>
+        </div>
+        <div class="quest-reward">+100</div>
+      </div>
+      <div class="quest-card">
+        <div class="quest-icon">📜</div>
+        <div class="quest-info">
+          <div class="quest-title">Тайна библиотеки</div>
+          <div class="quest-desc">Найди 5 древних свитков</div>
+        </div>
+        <div class="quest-reward">+200</div>
+      </div>
+    </div>
+  </div>
 
-    <script>
-        // Card Flip
-        function flipCard() {
-            const card = document.getElementById('card');
-            card.classList.toggle('is-flipped');
-        }
+  <!-- TAB: HISTORY -->
+  <div class="tab-content" id="tab-history">
+    <div class="section-title">История операций</div>
+    <div class="history-list">
+      <div class="history-item">
+        <div class="history-left">
+          <div class="history-icon">🧪</div>
+          <div><div class="history-name">Лаборатория алхимика</div><div class="history-date">Сегодня, 14:30</div></div>
+        </div>
+        <div class="history-points positive">+120</div>
+      </div>
+      <div class="history-item">
+        <div class="history-left">
+          <div class="history-icon">🎪</div>
+          <div><div class="history-name">Вход в королевство</div><div class="history-date">Вчера, 11:15</div></div>
+        </div>
+        <div class="history-points positive">+50</div>
+      </div>
+      <div class="history-item">
+        <div class="history-left">
+          <div class="history-icon">🍦</div>
+          <div><div class="history-name">Мороженое у Гнома</div><div class="history-date">10 апр, 16:40</div></div>
+        </div>
+        <div class="history-points negative">-200</div>
+      </div>
+      <div class="history-item">
+        <div class="history-left">
+          <div class="history-icon">🛡️</div>
+          <div><div class="history-name">Кузница: создание меча</div><div class="history-date">8 апр, 13:20</div></div>
+        </div>
+        <div class="history-points positive">+150</div>
+      </div>
+    </div>
+  </div>
 
-        // Modal Logic
-        function openModal() {
-            const modal = document.getElementById('qrModal');
-            modal.classList.add('active');
-        }
+  <!-- TAB: PROFILE -->
+  <div class="tab-content" id="tab-profile">
+    <div class="section-title">Профиль жителя</div>
+    <div class="profile-card">
+      <div class="avatar">👑</div>
+      <div class="user-name">Анна + 2 ребёнка</div>
+      <div class="user-level">Уровень: Ученик</div>
+    </div>
+    
+    <div class="section-title">Привилегии уровня</div>
+    <div class="privileges-grid">
+      <div class="privilege-item">
+        <div class="privilege-icon">⚡</div>
+        <div class="privilege-text">Без очереди на квесты</div>
+      </div>
+      <div class="privilege-item">
+        <div class="privilege-icon">🎁</div>
+        <div class="privilege-text">Скидка 10% на мерч</div>
+      </div>
+      <div class="privilege-item">
+        <div class="privilege-icon"></div>
+        <div class="privilege-text">Раннее бронирование</div>
+      </div>
+      <div class="privilege-item">
+        <div class="privilege-icon">🎂</div>
+        <div class="privilege-text">Подарок на ДР</div>
+      </div>
+    </div>
+  </div>
 
-        function closeModal() {
-            const modal = document.getElementById('qrModal');
-            modal.classList.remove('active');
-        }
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav">
+    <div class="nav-item active" onclick="switchTab('tab-card', this)">
+      <div class="nav-icon">💳</div>
+      <span>Карта</span>
+    </div>
+    <div class="nav-item" onclick="switchTab('tab-history', this)">
+      <div class="nav-icon">📜</div>
+      <span>История</span>
+    </div>
+    <div class="nav-item" onclick="switchTab('tab-profile', this)">
+      <div class="nav-icon">👤</div>
+      <span>Профиль</span>
+    </div>
+  </div>
 
-        // Close modal on outside click
-        window.onclick = function(event) {
-            const modal = document.getElementById('qrModal');
-            if (event.target == modal) {
-                closeModal();
-            }
-        }
-    </script>
+  <script>
+    function switchTab(tabId, el) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      el.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
 </body>
 </html>
