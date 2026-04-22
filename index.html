@@ -1,325 +1,184 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Клуб Жителей ФэнтазиГрад</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* CSS VARIABLES BASED ON FANTAZYGRAD BRANDING */
-        :root {
-            --bg-color: #273025; /* Dark Green from site */
-            --card-bg: #333e33;
-            --primary: #428f4d; /* Green from site */
-            --primary-hover: #35753e;
-            --secondary: #698762; /* Light green from site */
-            --text-main: #ffffff;
-            --text-muted: #9da2b1;
-            --accent: #4db7ff; /* Blue from telegram icon */
-            --radius: 25px;
-            --font: 'Manrope', sans-serif;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: var(--font);
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* BUTTONS */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px 32px;
-            border-radius: var(--radius);
-            font-weight: 700;
-            text-decoration: none;
-            transition: 0.3s;
-            cursor: pointer;
-            border: none;
-            font-size: 16px;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: #fff;
-            box-shadow: 0 4px 15px rgba(66, 143, 77, 0.3);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-hover);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background-color: var(--card-bg);
-            color: #fff;
-        }
-
-        /* HERO SECTION */
-        .hero {
-            padding: 80px 0;
-            text-align: center;
-            background: radial-gradient(circle at center, #333e33 0%, var(--bg-color) 70%);
-        }
-
-        .hero h1 {
-            font-size: 48px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            line-height: 1.1;
-        }
-
-        .hero p {
-            font-size: 18px;
-            color: var(--text-muted);
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* FEATURES GRID */
-        .features {
-            padding: 60px 0;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            padding: 30px;
-            transition: 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .card-icon {
-            font-size: 40px;
-            margin-bottom: 15px;
-        }
-
-        .card h3 {
-            font-size: 22px;
-            margin-bottom: 10px;
-        }
-
-        .card p {
-            color: var(--text-muted);
-        }
-
-        /* TIERS SECTION */
-        .tiers {
-            padding: 60px 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            font-size: 36px;
-            margin-bottom: 40px;
-            font-weight: 700;
-        }
-
-        .tier-card {
-            background: var(--bg-color);
-            border: 2px solid var(--card-bg);
-            border-radius: var(--radius);
-            padding: 40px 20px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .tier-card.featured {
-            border-color: var(--primary);
-            background: linear-gradient(180deg, #333e33 0%, var(--bg-color) 100%);
-        }
-
-        .tier-badge {
-            background: var(--primary);
-            color: #fff;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            text-transform: uppercase;
-        }
-
-        .tier-name {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .tier-points {
-            font-size: 14px;
-            color: var(--primary);
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        .tier-list {
-            list-style: none;
-            text-align: left;
-            margin-bottom: 30px;
-        }
-
-        .tier-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        .tier-list li::before {
-            content: "✓";
-            color: var(--primary);
-            margin-right: 10px;
-            font-weight: bold;
-        }
-
-        /* CTA SECTION */
-        .cta-section {
-            padding: 80px 0;
-            text-align: center;
-            background: var(--card-bg);
-            margin-top: 60px;
-            border-radius: var(--radius);
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 32px;
-            }
-            .grid {
-                grid-template-columns: 1fr;
-            }
-            .tier-card {
-                margin-bottom: 20px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ФэнтазиГрад — Карта участника</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+    /* Цвета взяты с твоего сайта */
+    :root {
+        --bg-color: #273025;       /* Основной темный фон */
+        --card-bg: #364236;        /* Цвет плашек */
+        --accent: #428f4d;         /* Фирменный зеленый */
+        --text-main: #ffffff;
+        --text-muted: #a1a1a1;
+        --gold: #ffd700;           /* Для уровней */
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Manrope', sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { background-color: var(--bg-color); color: var(--text-main); padding-bottom: 90px; }
+    
+    /* Шапка */
+    .header { padding: 20px; text-align: center; }
+    .logo { font-weight: 800; font-size: 24px; color: var(--text-main); letter-spacing: 1px; }
+    .logo span { color: var(--accent); }
+    
+    /* Основная карта */
+    .card-container { padding: 0 20px; }
+    .card {
+        background: linear-gradient(135deg, #428f4d 0%, #2e6636 100%);
+        border-radius: 24px;
+        padding: 25px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        margin-bottom: 25px;
+    }
+    /* Декор на карте */
+    .card::before {
+        content: ''; position: absolute; top: -50px; right: -50px;
+        width: 150px; height: 150px; background: rgba(255,255,255,0.1);
+        border-radius: 50%;
+    }
+    .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .user-name { font-size: 22px; font-weight: 700; }
+    .level-badge { 
+        background: rgba(0,0,0,0.2); padding: 6px 12px; border-radius: 20px; 
+        font-size: 12px; font-weight: 600; text-transform: uppercase;
+    }
+    
+    .points-section { text-align: center; margin-bottom: 20px; }
+    .points-value { font-size: 48px; font-weight: 800; line-height: 1; }
+    .points-label { font-size: 14px; color: rgba(255,255,255,0.8); margin-top: 5px; }
+    
+    .progress-bar { height: 6px; background: rgba(0,0,0,0.2); border-radius: 3px; overflow: hidden; margin-bottom: 10px; }
+    .progress-fill { height: 100%; background: var(--gold); width: 65%; }
+    .next-level { font-size: 12px; color: rgba(255,255,255,0.7); display: flex; justify-content: space-between; }
+    
+    /* Кнопка QR */
+    .qr-button {
+        background: var(--text-main); color: var(--accent); border: none;
+        width: 100%; padding: 15px; border-radius: 16px; font-weight: 700;
+        font-size: 16px; margin-top: 15px; cursor: pointer; display: flex;
+        align-items: center; justify-content: center; gap: 10px;
+    }
+    
+    /* Статистика */
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 20px; margin-bottom: 25px; }
+    .stat-card { background: var(--card-bg); padding: 15px; border-radius: 16px; }
+    .stat-val { font-size: 24px; font-weight: 700; color: var(--accent); }
+    .stat-label { font-size: 12px; color: var(--text-muted); }
+    
+    /* История */
+    .section-title { padding: 0 20px; font-size: 18px; font-weight: 700; margin-bottom: 15px; }
+    .history-list { padding: 0 20px; }
+    .history-item {
+        display: flex; align-items: center; padding: 15px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .history-icon {
+        width: 40px; height: 40px; background: var(--card-bg); border-radius: 12px;
+        display: flex; align-items: center; justify-content: center; font-size: 20px;
+        margin-right: 15px;
+    }
+    .history-info { flex: 1; }
+    .history-title { font-size: 14px; font-weight: 600; }
+    .history-date { font-size: 12px; color: var(--text-muted); }
+    .history-points { font-weight: 700; color: var(--accent); }
+    
+    /* Нижнее меню */
+    .bottom-nav {
+        position: fixed; bottom: 0; left: 0; right: 0;
+        background: #1f261f; padding: 15px; display: flex; justify-content: space-around;
+        border-top: 1px solid rgba(255,255,255,0.05); z-index: 100;
+    }
+    .nav-item { text-align: center; color: var(--text-muted); font-size: 10px; cursor: pointer; }
+    .nav-item.active { color: var(--accent); }
+    .nav-icon { font-size: 24px; margin-bottom: 4px; display: block; }
+</style>
 </head>
 <body>
 
-    <!-- HERO -->
-    <section class="hero">
-        <div class="container">
-            <h1>Клуб Жителей ФэнтазиГрад</h1>
-            <p>Собственная валюта королевства, подарки и привилегии для самых активных гостей</p>
-            <a href="#join" class="btn btn-primary">Вступить в клуб</a>
-        </div>
-    </section>
+    <div class="header">
+        <div class="logo">ФЭНТАЗИ<span>ГРАД</span></div>
+    </div>
 
-    <!-- BENEFITS -->
-    <section class="features">
-        <div class="container">
-            <div class="grid">
-                <div class="card">
-                    <div class="card-icon">💰</div>
-                    <h3>Монеты Королевства</h3>
-                    <p>Получайте 1 монету за каждые 100 рублей потраченные в парке. Тратьте на доп. услуги и фотосессии.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🎁</div>
-                    <h3>Подарки на ДР</h3>
-                    <p>Именинники получают x3 монет и бесплатный вход для себя в день рождения.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">👑</div>
-                    <h3>Особые привилегии</h3>
-                    <p>Ранний доступ к бронированию квестов и персональные приглашения на праздники.</p>
-                </div>
+    <div class="card-container">
+        <div class="card">
+            <div class="card-top">
+                <div class="user-name">Александра М.</div>
+                <div class="level-badge">Мастер</div>
             </div>
-        </div>
-    </section>
-
-    <!-- TIERS -->
-    <section class="tiers">
-        <div class="container">
-            <h2 class="section-title">Уровни мастерства</h2>
-            <div class="grid">
-                <!-- Tier 1 -->
-                <div class="tier-card">
-                    <div class="tier-name">Гость</div>
-                    <div class="tier-points">0 - 999 баллов</div>
-                    <ul class="tier-list">
-                        <li>Накопление монет</li>
-                        <li>Доступ к акциям</li>
-                    </ul>
-                </div>
-                <!-- Tier 2 (Featured) -->
-                <div class="tier-card featured">
-                    <div class="tier-badge">Популярный</div>
-                    <div class="tier-name">Резидент</div>
-                    <div class="tier-points">1000 - 4999 баллов</div>
-                    <ul class="tier-list">
-                        <li>Все привилегии Гостя</li>
-                        <li>x1.2 к монетам</li>
-                        <li>Бесплатный чай/кофе</li>
-                    </ul>
-                    <a href="#join" class="btn btn-primary">Стать Резидентом</a>
-                </div>
-                <!-- Tier 3 -->
-                <div class="tier-card">
-                    <div class="tier-name">Легенда</div>
-                    <div class="tier-points">5000+ баллов</div>
-                    <ul class="tier-list">
-                        <li>Все привилегии Резидента</li>
-                        <li>x1.5 к монетам</li>
-                        <li>Персональный менеджер</li>
-                    </ul>
-                </div>
+            <div class="points-section">
+                <div class="points-value">1,240</div>
+                <div class="points-label">очков опыта</div>
             </div>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+            <div class="next-level">
+                <span>Уровень: Мастер</span>
+                <span>до Легенды: 760 очков</span>
+            </div>
+            <button class="qr-button">📱 Показать QR-код</button>
         </div>
-    </section>
+    </div>
 
-    <!-- CTA -->
-    <section class="container" id="join">
-        <div class="cta-section">
-            <h2>Готовы стать жителем?</h2>
-            <p style="color: var(--text-muted); margin: 20px 0;">Заполните форму, и мы отправим вам виртуальную карту жителя в WhatsApp</p>
-            <form action="#" style="max-width: 400px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px;">
-                <input type="text" placeholder="Ваше имя" style="padding: 15px; border-radius: 15px; border: none; background: #273025; color: #fff; font-family: var(--font);">
-                <input type="tel" placeholder="+7 (999) 000-00-00" style="padding: 15px; border-radius: 15px; border: none; background: #273025; color: #fff; font-family: var(--font);">
-                <button type="submit" class="btn btn-primary">Получить карту</button>
-            </form>
-            <p style="font-size: 12px; color: #9da2b1; margin-top: 15px;">Нажимая кнопку, вы соглашаетесь с политикой обработки данных</p>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-val">12</div>
+            <div class="stat-label">Профессий пройдено</div>
         </div>
-    </section>
+        <div class="stat-card">
+            <div class="stat-val">5</div>
+            <div class="stat-label">Медалей</div>
+        </div>
+    </div>
 
-    <footer style="text-align: center; padding: 40px 0; color: var(--text-muted); font-size: 14px;">
-        <p>© 2024 ФэнтазиГрад. Все права защищены.</p>
-    </footer>
+    <div class="section-title">История приключений</div>
+    <div class="history-list">
+        <div class="history-item">
+            <div class="history-icon">🎨</div>
+            <div class="history-info">
+                <div class="history-title">Мастерская Художника</div>
+                <div class="history-date">Сегодня, 14:30</div>
+            </div>
+            <div class="history-points">+100</div>
+        </div>
+        <div class="history-item">
+            <div class="history-icon">👨‍🍳</div>
+            <div class="history-info">
+                <div class="history-title">Кулинарная студия</div>
+                <div class="history-date">Вчера, 16:00</div>
+            </div>
+            <div class="history-points">+100</div>
+        </div>
+        <div class="history-item">
+            <div class="history-icon">🎭</div>
+            <div class="history-info">
+                <div class="history-title">Театральная сцена</div>
+                <div class="history-date">20 окт, 12:00</div>
+            </div>
+            <div class="history-points">+150</div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <div class="nav-item active">
+            <span class="nav-icon">🏠</span>
+            <span>Главная</span>
+        </div>
+        <div class="nav-item">
+            <span class="nav-icon">🎓</span>
+            <span>Профессии</span>
+        </div>
+        <div class="nav-item">
+            <span class="nav-icon">🎁</span>
+            <span>Бонусы</span>
+        </div>
+        <div class="nav-item">
+            <span class="nav-icon">👤</span>
+            <span>Профиль</span>
+        </div>
+    </div>
 
 </body>
 </html>
