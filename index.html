@@ -3,346 +3,333 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Королевский Свиток</title>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>ФэнтазиГрад — Цифровой Паспорт</title>
     <style>
         :root {
-            --bg-dark: #273025;
-            --green-brand: #428f4d;
-            --gold: #FDBA29;
-            --gold-light: #ffe082;
-            --text-white: #ffffff;
-            --text-muted: #a1a1a1;
-            --parchment: #f4e7c3;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Manrope', sans-serif;
+            --primary: #428f4d;
+            --primary-dark: #2e6636;
+            --accent: #ffca28;
+            --bg: #f4f7f6;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --text-light: #7f8c8d;
+            --radius: 20px;
         }
 
         body {
-            background-color: var(--bg-dark);
-            background-image: radial-gradient(circle at center, #3a4a38 0%, #1a221a 100%);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            overflow: hidden;
-            color: var(--text-white);
+            align-items: center;
         }
 
-        /* Floating particles background */
-        .particles {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: radial-gradient(var(--gold) 1px, transparent 1px);
-            background-size: 40px 40px;
-            opacity: 0.1;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .app-container {
-            position: relative;
-            z-index: 10;
+        .container {
             width: 100%;
             max-width: 400px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            overflow: hidden;
+            position: relative;
         }
 
         /* HEADER */
         .header {
-            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 30px 20px 60px;
             text-align: center;
-            opacity: 0;
-            animation: fadeIn 0.5s ease forwards 0.2s;
-        }
-        .header h3 {
-            color: var(--gold);
-            font-size: 14px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* THE SCROLL (CARD) */
-        .scroll-container {
-            width: 100%;
             position: relative;
-            transform-origin: top center;
-            animation: unroll 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            transform: scaleY(0);
         }
+        .header h1 { margin: 0; font-size: 22px; font-weight: 600; }
+        .header p { margin: 5px 0 0; opacity: 0.8; font-size: 14px; }
 
-        @keyframes unroll {
-            0% { transform: scaleY(0); opacity: 0; }
-            100% { transform: scaleY(1); opacity: 1; }
-        }
-
-        .scroll-card {
-            background: linear-gradient(135deg, #2a382c 0%, #1e2b20 100%);
-            border: 2px solid var(--gold);
-            border-radius: 12px;
-            padding: 30px 20px;
-            box-shadow: 0 0 30px rgba(253, 186, 41, 0.2), inset 0 0 20px rgba(0,0,0,0.5);
-            position: relative;
-            text-align: center;
-            overflow: hidden;
-        }
-
-        /* Parchment texture overlay */
-        .scroll-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23FDBA29' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
-            opacity: 0.5;
-            pointer-events: none;
-        }
-
-        /* Ribbon */
-        .ribbon {
-            background: var(--gold);
-            color: var(--bg-dark);
-            font-weight: 800;
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 6px 15px;
-            display: inline-block;
-            border-radius: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        /* Profession Icon */
-        .prof-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
-            filter: drop-shadow(0 0 10px rgba(253, 186, 41, 0.6));
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .profession-name {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--gold-light);
-            margin-bottom: 10px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .student-name {
-            font-size: 18px;
-            color: var(--text-white);
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        .stars {
-            color: var(--gold);
-            font-size: 24px;
-            margin-bottom: 25px;
-            letter-spacing: 4px;
-        }
-
-        /* QR Section */
-        .qr-section {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-            display: inline-block;
-            border: 1px dashed var(--gold);
-            margin-bottom: 15px;
-        }
-
-        .qr-placeholder {
-            width: 80px;
-            height: 80px;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 4px;
-        }
-        
-        /* SVG QR Code Simulation */
-        .qr-svg path { fill: var(--bg-dark); }
-
-        .qr-label {
-            font-size: 10px;
-            color: var(--text-muted);
-            margin-top: 8px;
-            text-transform: uppercase;
-        }
-
-        /* Signature */
-        .signature {
-            font-family: 'Times New Roman', serif;
-            font-style: italic;
-            color: var(--gold);
-            font-size: 16px;
-            opacity: 0.8;
-        }
-
-        /* LEVEL PROGRESS */
-        .level-container {
-            width: 100%;
-            margin-top: 25px;
-            background: rgba(0,0,0,0.3);
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px solid rgba(253, 186, 41, 0.3);
-            opacity: 0;
-            animation: fadeIn 0.5s ease forwards 0.8s;
-        }
-
-        .level-header {
+        /* PROFILE CARD */
+        .profile-card {
+            margin: -40px 20px 20px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             display: flex;
             justify-content: space-between;
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
+            align-items: center;
         }
+        .user-info h2 { margin: 0; font-size: 18px; }
+        .user-level { 
+            font-size: 12px; 
+            background: #e8f5e9; 
+            color: var(--primary); 
+            padding: 4px 8px; 
+            border-radius: 10px; 
+            margin-top: 5px; 
+            display: inline-block;
+            font-weight: 600;
+        }
+        .points-display { text-align: right; }
+        .points-value { font-size: 24px; font-weight: 700; color: var(--primary); }
+        .points-label { font-size: 12px; color: var(--text-light); }
 
-        .progress-bar {
+        /* PROGRESS BAR */
+        .progress-container { margin: 0 20px 20px; }
+        .progress-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 5px; color: var(--text-light); }
+        .progress-bar { height: 8px; background: #eee; border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.5s ease; }
+
+        /* ACTIONS */
+        .actions { padding: 0 20px 20px; }
+        .action-title { font-size: 16px; font-weight: 600; margin-bottom: 15px; }
+        .btn-action {
             width: 100%;
-            height: 6px;
-            background: #3a4a38;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--green-brand), var(--gold));
-            border-radius: 3px;
-            animation: fillBar 1.5s ease forwards 1s;
-            box-shadow: 0 0 10px var(--gold);
-        }
-
-        @keyframes fillBar {
-            0% { width: 0%; }
-            100% { width: 65%; }
-        }
-
-        /* BUTTONS */
-        .actions {
-            margin-top: 25px;
-            display: flex;
-            gap: 15px;
-            width: 100%;
-            opacity: 0;
-            animation: fadeIn 0.5s ease forwards 1.2s;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 14px;
-            border: none;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 700;
+            padding: 15px;
+            border: 2px dashed #ddd;
+            border-radius: 12px;
+            background: #fafafa;
             cursor: pointer;
-            transition: transform 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--text);
+            transition: 0.2s;
+            margin-bottom: 10px;
+        }
+        .btn-action:hover { border-color: var(--primary); color: var(--primary); background: #e8f5e9; }
+        .btn-action:active { transform: scale(0.98); }
+
+        /* REWARDS SECTION */
+        .rewards { padding: 0 20px 30px; }
+        .reward-card {
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .reward-icon { font-size: 24px; }
+        .reward-info h3 { margin: 0; font-size: 14px; }
+        .reward-info p { margin: 2px 0 0; font-size: 12px; color: var(--text-light); }
+        .btn-unlock {
+            margin-left: auto;
+            background: var(--accent);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+        .btn-unlock.active { cursor: pointer; opacity: 1; }
+
+        /* MODAL (Certificate) */
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none; justify-content: center; align-items: center; z-index: 100;
+        }
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 320px;
+            position: relative;
+        }
+        .cert-frame {
+            border: 3px double var(--accent);
+            padding: 20px;
+            margin: 15px 0;
+            background: #fffdf0;
+        }
+        .cert-title { font-family: 'Georgia', serif; font-size: 20px; color: var(--primary); }
+        .cert-name { font-size: 16px; font-weight: bold; margin: 10px 0; border-bottom: 1px solid #ccc; display: inline-block; padding-bottom: 2px; }
+        .btn-download {
+            background: var(--primary); color: white; border: none;
+            padding: 10px 20px; border-radius: 8px; cursor: pointer; margin-top: 10px;
+        }
+        .btn-close {
+            position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px; cursor: pointer;
         }
 
-        .btn:active { transform: scale(0.95); }
-
-        .btn-primary {
-            background: linear-gradient(45deg, var(--green-brand), #5cb866);
-            color: white;
-            box-shadow: 0 4px 15px rgba(66, 143, 77, 0.4);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-        }
-
-        /* UTILS */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* ANIMATION */
+        @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+        .pop-anim { animation: pop 0.3s ease; }
 
     </style>
 </head>
 <body>
 
-    <div class="particles"></div>
+<div class="container">
+    <div class="header">
+        <h1> ФэнтазиГрад</h1>
+        <p>Ваш цифровой паспорт жителя</p>
+    </div>
 
-    <div class="app-container">
-        <div class="header">
-            <h3>Достижение разблокировано!</h3>
+    <!-- Profile Info -->
+    <div class="profile-card">
+        <div class="user-info">
+            <h2 id="userName">Гость</h2>
+            <span class="user-level" id="userLevel">Новичок</span>
         </div>
-
-        <div class="scroll-container">
-            <div class="scroll-card">
-                <div class="ribbon">Официальный сертификат</div>
-                
-                <div class="prof-icon">🧑‍🚒</div>
-                
-                <div class="profession-name">Юный Пожарный</div>
-                <div class="student-name">Алексей Смирнов</div>
-                
-                <div class="stars">⭐⭐⭐</div>
-
-                <div class="qr-section">
-                    <div class="qr-placeholder">
-                        <!-- Simple SVG QR -->
-                        <svg class="qr-svg" width="60" height="60" viewBox="0 0 100 100">
-                            <rect x="10" y="10" width="30" height="30" />
-                            <rect x="60" y="10" width="30" height="30" />
-                            <rect x="10" y="60" width="30" height="30" />
-                            <rect x="50" y="50" width="10" height="10" />
-                            <rect x="70" y="70" width="20" height="20" />
-                        </svg>
-                    </div>
-                    <div class="qr-label">Код подлинности: #FNT-8821</div>
-                </div>
-
-                <div class="signature">
-                    Король ФэнтазиГрада Дариан II
-                </div>
-            </div>
-        </div>
-
-        <div class="level-container">
-            <div class="level-header">
-                <span>Уровень: Мастер</span>
-                <span>65% до следующего</span>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill"></div>
-            </div>
-        </div>
-
-        <div class="actions">
-            <button class="btn btn-primary">
-                <span>📤</span> Поделиться
-            </button>
-            <button class="btn btn-secondary">
-                <span>📂</span> Коллекция
-            </button>
+        <div class="points-display">
+            <div class="points-value" id="points">0</div>
+            <div class="points-label">баллов</div>
         </div>
     </div>
+
+    <!-- Progress to Next Level -->
+    <div class="progress-container">
+        <div class="progress-label">
+            <span>До уровня «Мастер»</span>
+            <span id="progressText">0 / 100</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+    </div>
+
+    <!-- Actions (Simulating App Usage) -->
+    <div class="actions">
+        <div class="action-title">⚡ Получить баллы</div>
+        
+        <button class="btn-action" onclick="earnPoints(20)">
+            <span>📸</span> Сканировать QR в мастерской
+        </button>
+        
+        <button class="btn-action" onclick="earnPoints(50)">
+            <span>🎭</span> Пройти квест «Рыцарь»
+        </button>
+
+        <button class="btn-action" onclick="earnPoints(30)">
+            <span></span> Прогресс «Пожарный»
+        </button>
+    </div>
+
+    <!-- Rewards / Certificates -->
+    <div class="rewards">
+        <div class="action-title">🏆 Достижения</div>
+        
+        <div class="reward-card">
+            <div class="reward-icon">📜</div>
+            <div class="reward-info">
+                <h3>Сертификат «Мастер»</h3>
+                <p>Набери 100 баллов</p>
+            </div>
+            <button class="btn-unlock" id="btnUnlock1" onclick="showCertificate()">Получить</button>
+        </div>
+    </div>
+</div>
+
+<!-- Certificate Modal -->
+<div class="modal" id="certModal">
+    <div class="modal-content">
+        <button class="btn-close" onclick="closeModal()">×</button>
+        <div class="cert-frame">
+            <div class="cert-title">ДИПЛОМ</div>
+            <p style="font-size: 12px; margin: 5px 0;">Выдано жителям ФэнтазиГрад</p>
+            <div class="cert-name" id="certUser">Имя Гостя</div>
+            <p style="font-size: 14px;">Успешно завершил программу<br>и стал настоящим Мастером!</p>
+            <div style="margin-top: 15px; font-size: 30px;">⭐⭐⭐</div>
+        </div>
+        <button class="btn-download" onclick="downloadCert()">💾 Скачать сертификат</button>
+    </div>
+</div>
+
+<script>
+    // --- LOGIC ---
+    
+    // State initialization (Load from LocalStorage or Default)
+    let state = JSON.parse(localStorage.getItem('fantazigrad_user')) || {
+        name: 'Гость',
+        points: 0,
+        level: 'Новичок',
+        hasMasterCert: false
+    };
+
+    // DOM Elements
+    const elPoints = document.getElementById('points');
+    const elLevel = document.getElementById('userLevel');
+    const elProgress = document.getElementById('progressBar');
+    const elProgressText = document.getElementById('progressText');
+    const elBtnUnlock = document.getElementById('btnUnlock1');
+    const elCertUser = document.getElementById('certUser');
+
+    // Init UI
+    updateUI();
+
+    // Function: Earn Points
+    function earnPoints(amount) {
+        state.points += amount;
+        
+        // Level Up Logic
+        if (state.points >= 100 && state.level !== 'Мастер') {
+            state.level = 'Мастер';
+            // Confetti effect could go here
+            alert("🎉 Поздравляем! Вы достигли уровня МАСТЕР!");
+        } else if (state.points >= 50 && state.level === 'Новичок') {
+            state.level = 'Ученик';
+        }
+
+        saveData();
+        updateUI();
+    }
+
+    // Function: Update UI
+    function updateUI() {
+        elPoints.innerText = state.points;
+        elLevel.innerText = state.level;
+        
+        // Progress Calculation (Target 100)
+        let progress = (state.points / 100) * 100;
+        if (progress > 100) progress = 100;
+        
+        elProgress.style.width = progress + '%';
+        elProgressText.innerText = `${state.points} / 100`;
+
+        // Unlock Button State
+        if (state.points >= 100) {
+            elBtnUnlock.classList.add('active');
+            elBtnUnlock.style.cursor = 'pointer';
+            elBtnUnlock.style.opacity = '1';
+        } else {
+            elBtnUnlock.classList.remove('active');
+            elBtnUnlock.style.cursor = 'not-allowed';
+            elBtnUnlock.style.opacity = '0.5';
+        }
+    }
+
+    // Function: Show Certificate
+    function showCertificate() {
+        if (state.points < 100) return;
+        
+        document.getElementById('certModal').style.display = 'flex';
+        elCertUser.innerText = prompt("Введите ваше имя для сертификата:", "Иван");
+    }
+
+    function closeModal() {
+        document.getElementById('certModal').style.display = 'none';
+    }
+
+    function downloadCert() {
+        alert("Эмуляция скачивания: Сертификат.pdf сохранен!");
+        closeModal();
+    }
+
+    // Function: Save Data
+    function saveData() {
+        localStorage.setItem('fantazigrad_user', JSON.stringify(state));
+    }
+
+</script>
 
 </body>
 </html>
