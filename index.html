@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Мастер Фидель — Челябинск</title>
+<title>Мастер Фидель — Мойка крыш Челябинск</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --white:#ffffff;--off:#f5f3ef;--light:#eceae4;
-  --black:#0c0c0c;--gray:#686868;--gray2:#afa89e;--border:#ddd8ce;
-  --blue:#1a56db;--blue2:#1e42e8;--blue-dim:rgba(26,86,219,0.08);--blue-border:rgba(26,86,219,0.22);
-  --water:#0ea5e9;
-  --gold:#c08a2e;--gold2:#d4a84b;--gold-dim:rgba(192,138,46,0.1);--gold-border:rgba(192,138,46,0.3);
-  --green:#18b85a;
+  --white:#ffffff;--off:#f8fafc;
+  --black:#0f172a;--dark:#1e293b;--gray:#64748b;
+  --water:#06b6d4;--water2:#0891b2;--water-dark:#0e7490;--ocean:#0c4a6e;
+  --concrete:#e7e5e4;--concrete-light:#d6d3d1;--concrete-dark:#57534e;
+  --gold:#fbbf24;--gold2:#f59e0b;--gold-light:#fcd34d;
+  --orange:#f97316;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -21,196 +21,273 @@ body{background:var(--white);color:var(--black);font-family:'Barlow',sans-serif;
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--black);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;}
-.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--white);display:flex;align-items:center;gap:0;}
-.nav-logo .accent{color:var(--gold2);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--white);}
+.nav-logo .accent{color:var(--water);}
 .nav-links{display:flex;gap:24px;}
-.nav-links a{font-size:12px;font-weight:700;color:rgba(255,255,255,.4);text-decoration:none;letter-spacing:.5px;text-transform:uppercase;transition:color .2s;}
-.nav-links a:hover{color:var(--white);}
-.nav-btn{background:var(--gold2);color:#000;font-family:'Barlow',sans-serif;font-weight:800;font-size:12px;padding:8px 18px;border-radius:3px;text-decoration:none;letter-spacing:.5px;text-transform:uppercase;transition:filter .2s;white-space:nowrap;}
-.nav-btn:hover{filter:brightness(1.1);}
+.nav-links a{font-size:12px;font-weight:700;color:rgba(255,255,255,.4);text-decoration:none;text-transform:uppercase;transition:color .2s;}
+.nav-links a:hover{color:var(--water);}
+.nav-btn{background:var(--orange);color:#fff;font-family:'Barlow',sans-serif;font-weight:800;font-size:12px;padding:8px 18px;border-radius:3px;text-decoration:none;text-transform:uppercase;}
 
 /* HERO */
 .hero{margin-top:56px;background:var(--black);position:relative;overflow:hidden;}
 .hero-main{display:flex;align-items:stretch;min-height:calc(100vh - 56px - 68px);}
-.hero-left{flex:1;padding:56px 48px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2;}
-.hero-right{width:44%;position:relative;overflow:hidden;flex-shrink:0;}
-.hero-right-img{position:absolute;inset:0;background:url('hero.jpg') center/cover no-repeat;opacity:0.55;filter:contrast(1.05);}
-.hero-right-overlay{position:absolute;inset:0;background:linear-gradient(to right, var(--black) 0%, transparent 40%);}
-.hero-right-shape{position:absolute;inset:0;background:transparent;}
-.hero-right-shape::before{content:'ЧИСТО';position:absolute;font-family:'Bebas Neue',sans-serif;font-size:120px;color:rgba(255,255,255,.04);line-height:1;top:50%;right:-8px;transform:translateY(-60%) rotate(-90deg);letter-spacing:8px;}
+.hero-left{flex:1;padding:56px 48px;display:flex;flex-direction:column;justify-content:center;z-index:2;}
+.hero-right{width:44%;position:relative;overflow:hidden;}
+.hero-right::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg, var(--water2), var(--ocean));opacity:0.6;}
+.hero-right::after{content:'ЧИСТО';position:absolute;font-family:'Bebas Neue',sans-serif;font-size:120px;color:rgba(255,255,255,.04);top:50%;right:-8px;transform:translateY(-60%) rotate(-90deg);}
 
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gold2);color:#000;font-size:11px;font-weight:800;padding:5px 14px;border-radius:2px;text-transform:uppercase;letter-spacing:1px;margin-bottom:22px;width:fit-content;}
-.bdot{width:7px;height:7px;border-radius:50%;background:#c00;animation:bdot 1.5s infinite;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff;font-size:11px;font-weight:800;padding:5px 14px;border-radius:2px;text-transform:uppercase;margin-bottom:22px;width:fit-content;}
+.bdot{width:7px;height:7px;border-radius:50%;background:#fff;animation:bdot 1.5s infinite;}
 @keyframes bdot{0%,100%{transform:scale(1)}50%{transform:scale(1.6)}}
 
 h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(64px,9vw,132px);line-height:.88;color:var(--white);letter-spacing:2px;margin-bottom:14px;}
 h1 .w{color:var(--water);}
-h1 .g{color:var(--gold2);}
+h1 .o{color:var(--orange);}
 .hero-sub{font-size:17px;color:rgba(255,255,255,.55);max-width:420px;line-height:1.65;margin-bottom:32px;}
 .hero-actions{display:flex;gap:10px;flex-wrap:wrap;}
-.btn-gold{background:var(--gold2);color:#000;font-family:'Barlow',sans-serif;font-weight:800;font-size:15px;padding:14px 26px;border-radius:3px;text-decoration:none;text-transform:uppercase;letter-spacing:.5px;transition:filter .2s,transform .15s;display:inline-block;border:none;cursor:pointer;}
-.btn-gold:hover{filter:brightness(1.1);transform:translateY(-2px);}
-.btn-outline-w{background:transparent;color:#fff;font-family:'Barlow',sans-serif;font-weight:700;font-size:15px;padding:14px 26px;border-radius:3px;text-decoration:none;text-transform:uppercase;letter-spacing:.5px;border:2px solid rgba(255,255,255,.18);transition:border-color .2s;display:inline-block;}
-.btn-outline-w:hover{border-color:rgba(255,255,255,.5);}
+.btn-orange{background:var(--orange);color:#fff;font-family:'Barlow',sans-serif;font-weight:800;font-size:15px;padding:14px 26px;border-radius:3px;text-decoration:none;text-transform:uppercase;display:inline-block;border:none;cursor:pointer;}
+.btn-outline-w{background:transparent;color:#fff;font-family:'Barlow',sans-serif;font-weight:700;font-size:15px;padding:14px 26px;border-radius:3px;text-decoration:none;text-transform:uppercase;border:2px solid rgba(255,255,255,.18);display:inline-block;}
+.btn-outline-w:hover{border-color:var(--water);}
 
-/* HERO STATS */
-.hero-stats{background:var(--gold2);display:flex;border-top:3px solid var(--black);}
+.hero-stats{background:var(--water);display:flex;border-top:3px solid var(--black);}
 .hs{flex:1;padding:16px 18px;border-right:2px solid rgba(0,0,0,.1);text-align:center;}
 .hs:last-child{border-right:none;}
 .hs-val{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--black);line-height:1;}
 .hs-label{font-size:10px;font-weight:800;color:rgba(0,0,0,.42);text-transform:uppercase;letter-spacing:.8px;margin-top:2px;}
 
 /* TICKER */
-.ticker{background:var(--black);overflow:hidden;padding:10px 0;border-top:3px solid rgba(255,255,255,.07);border-bottom:3px solid rgba(255,255,255,.07);}
-.ticker-inner{display:flex;animation:tick 24s linear infinite;width:max-content;}
-.ticker-item{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:rgba(255,255,255,.5);padding:0 28px;white-space:nowrap;}
-.ticker-item.blue{color:var(--water);}
-.ticker-item.gold{color:var(--gold2);}
-.ticker-item::after{content:'✦';margin-left:28px;color:rgba(255,255,255,.15);}
-@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker{background:var(--dark);overflow:hidden;padding:12px 0;border-top:2px solid var(--water);border-bottom:2px solid var(--water);}
+.ticker-wrap{width:100%;overflow:hidden;}
+.ticker-inner{display:flex;animation:tick 30s linear infinite;width:max-content;gap:48px;padding-left:48px;}
+.ticker-item{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--gray);white-space:nowrap;text-transform:uppercase;}
+.ticker-item.water{color:var(--water);}
+.ticker-item.orange{color:var(--orange);}
+.ticker-item::after{content:'◆';margin-left:48px;color:var(--water);opacity:0.3;}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
 /* SECTIONS */
-section{padding:80px 24px;}
+section{padding:80px 24px;position:relative;}
 .container{max-width:1080px;margin:0 auto;}
-.stag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
-.stag::before{content:'';width:22px;height:3px;background:var(--gold);}
-.stag.blue-tag{color:var(--blue);}
-.stag.blue-tag::before{background:var(--blue);}
-.stitle{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,5vw,62px);color:var(--black);line-height:.95;margin-bottom:14px;letter-spacing:1px;}
-.stitle.white{color:#fff;}
+.stag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
+.stag.water{color:var(--water);}
+.stag.water::before{content:'';width:22px;height:3px;background:var(--water);}
+.stag.gold{color:var(--gold2);}
+.stag.gold::before{content:'';width:22px;height:3px;background:var(--gold2);}
+.stitle{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,5vw,62px);line-height:.95;margin-bottom:14px;letter-spacing:1px;}
 .ssub{font-size:16px;color:var(--gray);max-width:520px;line-height:1.7;}
 .rv{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease;}
 .rv.vis{opacity:1;transform:none;}
 
-/* ══ МОЙКА ══ */
-#wash{background:var(--off);}
-.wash-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px;}
-.wash-card{background:var(--white);padding:30px 26px;position:relative;overflow:hidden;transition:background .25s;}
+/* ═══ WATER WORLD - МОЙКА ═══ */
+#wash{
+  background: linear-gradient(180deg, rgba(6,182,212,0.05) 0%, rgba(14,116,144,0.08) 50%, rgba(12,74,110,0.1) 100%);
+  position:relative;
+  overflow:hidden;
+}
+#wash::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;height:100%;
+  background: repeating-linear-gradient(90deg, transparent 0px, transparent 50px, rgba(6,182,212,0.03) 50px, rgba(6,182,212,0.03) 100px);
+  animation: waveMove 20s linear infinite;
+  pointer-events:none;
+}
+@keyframes waveMove{0%{transform:translateX(0)}100%{transform:translateX(100px)}}
+
+.water-drop{
+  position:absolute;
+  width:3px;height:3px;
+  background:var(--water);
+  border-radius:50%;
+  opacity:0.4;
+  animation:dropFall linear infinite;
+  pointer-events:none;
+}
+@keyframes dropFall{
+  0%{transform:translateY(-100vh) translateX(0);opacity:0}
+  10%{opacity:0.4}
+  90%{opacity:0.4}
+  100%{transform:translateY(100vh) translateX(20px);opacity:0}
+}
+
+.wash-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px;position:relative;z-index:1;}
+.wash-card{background:var(--white);padding:30px 26px;position:relative;overflow:hidden;transition:all .25s;}
 .wash-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:var(--water);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
-.wash-card:hover{background:var(--black);}
+.wash-card:hover{background:var(--dark);transform:translateY(-4px);}
 .wash-card:hover::after{transform:scaleX(1);}
 .wash-card:hover .wc-num{color:rgba(255,255,255,.04);}
 .wash-card:hover .wc-t,.wash-card:hover .wc-d{color:#fff;}
-.wash-card:hover .wc-tag{background:var(--gold2);color:#000;}
-.wc-num{font-family:'Bebas Neue',sans-serif;font-size:50px;color:var(--light);line-height:1;margin-bottom:10px;transition:color .25s;}
-.wc-t{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:21px;color:var(--black);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;transition:color .25s;}
-.wc-d{font-size:14px;color:var(--gray);line-height:1.65;transition:color .25s;}
-.wc-tag{display:inline-block;margin-top:12px;font-size:11px;font-weight:800;color:var(--water);background:rgba(14,165,233,0.1);padding:4px 10px;border-radius:2px;text-transform:uppercase;letter-spacing:.5px;transition:all .25s;}
+.wash-card:hover .wc-tag{background:var(--orange);color:#fff;}
+.wc-num{font-family:'Bebas Neue',sans-serif;font-size:50px;color:var(--off);line-height:1;margin-bottom:10px;}
+.wc-t{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:21px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+.wc-d{font-size:14px;color:var(--gray);line-height:1.65;}
+.wc-tag{display:inline-block;margin-top:12px;font-size:11px;font-weight:800;color:var(--water);background:rgba(6,182,212,0.1);padding:4px 10px;border-radius:2px;text-transform:uppercase;}
 
-/* Прайс мойки */
-.wash-price-block{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:2px;}
+.wash-price-block{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:2px;position:relative;z-index:1;}
 .wp-row{background:var(--white);display:flex;justify-content:space-between;align-items:center;padding:20px 26px;}
-.wp-row.dark{background:var(--black);}
-.wp-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:17px;text-transform:uppercase;letter-spacing:.5px;color:var(--black);}
+.wp-row.dark{background:var(--dark);}
+.wp-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:17px;text-transform:uppercase;letter-spacing:.5px;}
 .wp-row.dark .wp-name{color:#fff;}
 .wp-price{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--water);line-height:1;}
-.wp-note{font-size:11px;color:var(--gray2);margin-top:2px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.wp-note{font-size:11px;color:var(--gray);margin-top:2px;font-weight:700;text-transform:uppercase;}
 
-/* ══ ФИГУРЫ ══ */
-#sculpt{background:var(--white);}
-.sculpt-main{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:48px;}
+/* ═══ LOFT WORLD - СКУЛЬПТУРЫ ═══ */
+#sculpt{
+  background: linear-gradient(180deg, var(--concrete) 0%, var(--concrete-light) 100%);
+  position:relative;
+  overflow:hidden;
+}
+#sculpt::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.012) 2px, rgba(0,0,0,0.012) 4px);
+  opacity:1;
+  pointer-events:none;
+  z-index:0;
+}
+#sculpt::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle at 20% 30%, rgba(0,0,0,0.02) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(0,0,0,0.02) 0%, transparent 50%);
+  pointer-events:none;
+  z-index:0;
+}
+
+.sculpt-main{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:48px;
+  align-items:center;
+  margin-top:48px;
+  position:relative;
+  z-index:2;
+}
 .sculpt-img-wrap{position:relative;}
-.sculpt-img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center;border:3px solid var(--black);display:block;}
-.sculpt-badge{position:absolute;top:16px;left:16px;background:var(--gold2);color:#000;font-size:10px;font-weight:800;padding:5px 12px;border-radius:2px;text-transform:uppercase;letter-spacing:1px;}
-.sculpt-cards{display:flex;flex-direction:column;gap:2px;}
-.sc-card{background:var(--off);border:2px solid var(--border);padding:22px 24px;display:flex;gap:16px;align-items:flex-start;position:relative;overflow:hidden;transition:border-color .25s;}
-.sc-card:hover{border-color:var(--gold);}
-.sc-card.featured{background:var(--black);border-color:var(--black);}
-.sc-ico{width:44px;height:44px;border-radius:2px;background:var(--light);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
-.sc-card.featured .sc-ico{background:rgba(255,255,255,.06);}
-.sc-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:18px;text-transform:uppercase;letter-spacing:.5px;color:var(--black);margin-bottom:3px;}
+.sculpt-img{
+  width:100%;
+  aspect-ratio:4/5;
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold2) 100%);
+  border:3px solid var(--black);
+  display:block;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25), inset 0 0 60px rgba(255,255,255,0.3);
+  position:relative;
+  border-radius:4px;
+}
+.sculpt-img::before{
+  content:'';
+  position:absolute;
+  top:-50%;left:-50%;
+  width:200%;height:200%;
+  background:linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%);
+  animation:goldShine 8s infinite;
+}
+@keyframes goldShine{
+  0%{transform:translateX(-100%) rotate(45deg)}
+  100%{transform:translateX(100%) rotate(45deg)}
+}
+.sculpt-badge{
+  position:absolute;
+  top:16px;left:16px;
+  background:var(--gold2);
+  color:#000;
+  font-size:10px;
+  font-weight:800;
+  padding:5px 12px;
+  border-radius:2px;
+  text-transform:uppercase;
+  z-index:3;
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);
+}
+
+.sculpt-cards{display:flex;flex-direction:column;gap:16px;}
+.sc-card{
+  background:var(--white);
+  border:none;
+  padding:24px 28px;
+  display:flex;
+  gap:16px;
+  align-items:flex-start;
+  position:relative;
+  z-index:2;
+  border-radius:8px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.08);
+  transition:all .25s;
+}
+.sc-card:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,0,0,0.12);}
+.sc-card.featured{
+  background:linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border:2px solid var(--gold);
+  box-shadow:0 8px 30px rgba(251,191,36,0.2);
+}
+.sc-ico{width:48px;height:48px;border-radius:6px;background:var(--off);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+.sc-card.featured .sc-ico{background:rgba(251,191,36,0.15);}
+.sc-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:18px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;color:var(--black);}
 .sc-card.featured .sc-name{color:#fff;}
 .sc-d{font-size:13px;color:var(--gray);line-height:1.5;}
-.sc-card.featured .sc-d{color:rgba(255,255,255,.35);}
+.sc-card.featured .sc-d{color:rgba(255,255,255,.5);}
 .sc-price{margin-left:auto;text-align:right;flex-shrink:0;}
 .sc-val{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--gold2);line-height:1;display:block;}
-.sc-unit{font-size:10px;color:var(--gray2);font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.sc-card.featured .sc-val{color:var(--gold);}
 
-/* ══ ГАРАНТИИ — чёрный блок ══ */
+/* ═══ GUARANTEES ═══ */
 #guarantee{background:var(--black);padding:80px 24px;position:relative;overflow:hidden;}
-.gt-stripe{position:absolute;top:0;right:0;width:36%;height:100%;background:rgba(212,168,75,0.06);clip-path:polygon(60px 0,100% 0,100% 100%,0 100%);}
+.gt-stripe{position:absolute;top:0;right:0;width:36%;height:100%;background:rgba(6,182,212,0.06);clip-path:polygon(60px 0,100% 0,100% 100%,0 100%);}
 .gt-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
 .gt-perks{display:flex;flex-direction:column;gap:16px;margin-top:28px;}
 .gt-perk{display:flex;gap:14px;align-items:flex-start;}
-.gp-ico{width:42px;height:42px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.gp-ico{width:42px;height:42px;background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.3);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
 .gp-t{font-size:14px;font-weight:800;color:#fff;margin-bottom:3px;}
 .gp-d{font-size:13px;color:rgba(255,255,255,.38);line-height:1.5;}
-
-/* Большая цитата */
 .gt-quote-block{position:relative;z-index:1;}
-.gt-quote{font-family:'Bebas Neue',sans-serif;font-size:80px;color:var(--gold2);line-height:.8;margin-bottom:0;opacity:.15;position:absolute;top:-10px;left:0;}
+.gt-quote{font-family:'Bebas Neue',sans-serif;font-size:80px;color:var(--water);line-height:.8;opacity:.15;position:absolute;top:-10px;left:0;}
 .gt-quote-text{font-size:22px;font-style:italic;color:rgba(255,255,255,.75);line-height:1.5;margin-bottom:20px;padding-top:48px;}
-.gt-quote-author{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:16px;color:var(--gold2);text-transform:uppercase;letter-spacing:.5px;}
+.gt-quote-author{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:16px;color:var(--water);text-transform:uppercase;}
 
-/* ══ ОТЗЫВЫ ══ */
+/* ═══ REVIEWS ═══ */
 #reviews{background:var(--off);}
 .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px;}
 .rev-card{background:var(--white);padding:26px;}
-.rev-q{font-family:'Bebas Neue',sans-serif;font-size:64px;color:var(--gold2);line-height:.8;margin-bottom:6px;}
-.rev-stars{font-size:13px;letter-spacing:2px;margin-bottom:10px;color:#e8180c;}
-.rev-text{font-size:14px;color:var(--black);line-height:1.75;margin-bottom:18px;font-style:italic;}
-.rev-author{display:flex;align-items:center;gap:10px;padding-top:14px;border-top:2px solid var(--border);}
-.rev-av{width:36px;height:36px;border-radius:50%;background:var(--black);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--gold2);}
-.rev-name{font-size:13px;font-weight:800;color:var(--black);}
+.rev-q{font-family:'Bebas Neue',sans-serif;font-size:64px;color:var(--water);line-height:.8;margin-bottom:6px;}
+.rev-stars{font-size:13px;letter-spacing:2px;margin-bottom:10px;color:var(--orange);}
+.rev-text{font-size:14px;line-height:1.75;margin-bottom:18px;font-style:italic;}
+.rev-author{display:flex;align-items:center;gap:10px;padding-top:14px;border-top:2px solid var(--off);}
+.rev-av{width:36px;height:36px;border-radius:50%;background:var(--black);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--water);}
+.rev-name{font-size:13px;font-weight:800;}
 .rev-date{font-size:11px;color:var(--gray);}
 
-/* ══ CTA ══ */
-#cta{background:var(--gold2);}
+/* ═══ CTA ═══ */
+#cta{background:var(--orange);}
 .cta-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
-.cta-perks{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:24px;}
-.cta-perk{background:rgba(0,0,0,.07);border-radius:4px;padding:14px;}
-.cp-ico{font-size:20px;margin-bottom:6px;}
-.cp-t{font-size:13px;font-weight:800;color:var(--black);}
-.cp-d{font-size:12px;color:rgba(0,0,0,.5);margin-top:2px;line-height:1.4;}
-.cta-right{text-align:center;}
-.cta-bignum{font-family:'Bebas Neue',sans-serif;font-size:110px;color:rgba(0,0,0,.07);line-height:1;margin-bottom:-16px;}
-.cta-card{background:var(--black);border-radius:8px;padding:22px;display:inline-block;text-align:left;width:100%;}
-.cc-top{font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--gold2);letter-spacing:1px;margin-bottom:10px;}
-.cc-name{font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;line-height:1;margin-bottom:6px;}
-.cc-items{display:flex;flex-direction:column;gap:0;}
-.cc-item{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px;}
-.cc-item:last-child{border-bottom:none;}
-.cc-item-label{color:rgba(255,255,255,.35);}
-.cc-item-val{color:#fff;font-weight:800;}
 .cta-stag{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(0,0,0,.4);margin-bottom:10px;}
-.cta-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4.5vw,54px);color:var(--black);line-height:.95;margin-bottom:12px;letter-spacing:1px;}
+.cta-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4.5vw,54px);line-height:.95;margin-bottom:12px;}
 .cta-desc{font-size:16px;color:rgba(0,0,0,.6);line-height:1.65;margin-bottom:24px;}
-.btn-dark{background:var(--black);color:var(--gold2);font-family:'Barlow',sans-serif;font-weight:800;font-size:15px;padding:15px 28px;border-radius:3px;text-decoration:none;text-transform:uppercase;letter-spacing:.5px;transition:background .2s;display:inline-block;border:none;cursor:pointer;}
-.btn-dark:hover{background:#222;}
+.btn-dark{background:var(--black);color:var(--orange);font-family:'Barlow',sans-serif;font-weight:800;font-size:15px;padding:15px 28px;border-radius:3px;text-decoration:none;text-transform:uppercase;display:inline-block;border:none;cursor:pointer;text-align:center;}
 
-/* ══ КОНТАКТЫ ══ */
+/* ═══ CONTACTS ═══ */
 #contacts{background:var(--white);}
 .contacts-grid{display:grid;grid-template-columns:5fr 4fr;gap:48px;margin-top:48px;}
-.clink-wrap{display:flex;flex-direction:column;}
-.clink{display:flex;align-items:center;gap:14px;padding:18px 0;border-bottom:2px solid var(--border);text-decoration:none;transition:padding-left .2s;}
-.clink:first-of-type{border-top:2px solid var(--border);}
-.clink:hover{padding-left:8px;}
-.cl-ico{width:44px;height:44px;background:var(--black);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;border-radius:2px;}
-.cl-label{font-size:10px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.5px;}
-.cl-val{font-size:15px;font-weight:800;color:var(--black);}
+.clink{display:flex;align-items:center;gap:14px;padding:18px 0;border-bottom:2px solid var(--off);text-decoration:none;}
+.clink:first-of-type{border-top:2px solid var(--off);}
+.cl-ico{width:44px;height:44px;background:var(--black);display:flex;align-items:center;justify-content:center;font-size:20px;border-radius:2px;}
+.cl-label{font-size:10px;font-weight:700;color:var(--gray);text-transform:uppercase;}
+.cl-val{font-size:15px;font-weight:800;}
 .avito-block{margin-top:28px;background:var(--off);border:3px solid var(--black);padding:24px;}
-.ab-title{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;margin-bottom:12px;}
-.ab-desc{font-size:14px;color:var(--gray);line-height:1.6;margin-bottom:16px;}
-.area-tags{display:flex;flex-wrap:wrap;gap:6px;}
-.area-tag{font-size:12px;font-weight:700;color:var(--gray);background:var(--light);padding:5px 12px;border-radius:2px;}
+.area-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
+.area-tag{font-size:12px;font-weight:700;color:var(--gray);background:var(--off);padding:5px 12px;border-radius:2px;border:1px solid var(--off);}
 
 /* FOOTER */
 footer{background:var(--black);padding:28px 24px;}
-.footer-in{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.footer-in{max-width:1080px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;}
 .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#fff;}
-.footer-logo .accent{color:var(--gold2);}
+.footer-logo .accent{color:var(--water);}
 .footer-copy{font-size:12px;color:rgba(255,255,255,.25);}
-.footer-link{font-size:12px;color:rgba(255,255,255,.25);text-decoration:none;}
-.footer-link:hover{color:rgba(255,255,255,.5);}
 
 /* RESPONSIVE */
 @media(max-width:900px){
   .wash-grid,.rev-grid{grid-template-columns:1fr 1fr;}
   .sculpt-main,.gt-inner,.cta-inner,.contacts-grid{grid-template-columns:1fr;}
-  .gt-stripe{display:none;}
-  .cta-right{display:none;}
-  .wash-price-block{grid-template-columns:1fr;}
-  h1{font-size:clamp(56px,14vw,100px);}
   .hero-right{display:none;}
   .hero-left{padding:40px 20px;}
 }
@@ -221,18 +298,16 @@ footer{background:var(--black);padding:28px 24px;}
   .hs{flex:0 0 50%;}
   .hs:nth-child(2){border-right:none;}
   .hs:nth-child(3),.hs:nth-child(4){border-top:2px solid rgba(0,0,0,.08);}
-  .cta-perks{grid-template-columns:1fr;}
   section{padding:56px 18px;}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <div class="nav-logo">МАСТЕР <span class="accent">&nbsp;ФИДЕЛЬ</span></div>
+  <div class="nav-logo">МАСТЕР <span class="accent">ФИДЕЛЬ</span></div>
   <div class="nav-links">
-    <a href="#wash">Мойка крыш</a>
+    <a href="#wash">Мойка</a>
     <a href="#sculpt">Фигуры</a>
     <a href="#guarantee">Гарантии</a>
     <a href="#contacts">Контакты</a>
@@ -240,187 +315,107 @@ footer{background:var(--black);padding:28px 24px;}
   <a href="tel:+79085715503" class="nav-btn">📞 Позвонить</a>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-main">
     <div class="hero-left">
-      <div class="hero-badge">
-        <div class="bdot"></div>
-        Принимаем заявки · Челябинск
-      </div>
-      <h1>ЧИСТИМ.<br><span class="w">МОЕМ.</span><br><span class="g">УКРАШАЕМ.</span></h1>
-      <p class="hero-sub">Мойка крыш от мха — до 300 бар. Бетонные фигуры для двора — от скульптур до кашпо. Всё под ключ, по договору, с гарантией.</p>
+      <div class="hero-badge"><div class="bdot"></div>Челябинск · Выезд 0₽</div>
+      <h1>ЧИСТИМ.<br><span class="w">МОЕМ.</span><br><span class="o">УКРАШАЕМ.</span></h1>
+      <p class="hero-sub">Мойка крыш до 300 бар. Бетонные фигуры для двора. Всё под ключ, по договору, с гарантией.</p>
       <div class="hero-actions">
-        <a href="tel:+79085715503" class="btn-gold">📞 +7 (908) 571-55-03</a>
-        <a href="#wash" class="btn-outline-w">Смотреть услуги →</a>
+        <a href="tel:+79085715503" class="btn-orange">📞 +7 (908) 571-55-03</a>
+        <a href="#wash" class="btn-outline-w">Услуги →</a>
       </div>
     </div>
-    <div class="hero-right">
-      <div class="hero-right-img"></div>
-      <div class="hero-right-overlay"></div>
-      <div class="hero-right-shape"></div>
+    <div class="hero-right"></div>
+  </div>
+  <div class="hero-stats">
+    <div class="hs"><div class="hs-val">300</div><div class="hs-label">Бар</div></div>
+    <div class="hs"><div class="hs-val">0₽</div><div class="hs-label">Выезд</div></div>
+    <div class="hs"><div class="hs-val">2+</div><div class="hs-label">Года</div></div>
+    <div class="hs"><div class="hs-val">✓</div><div class="hs-label">Гарантия</div></div>
+  </div>
+</div>
+
+<div class="ticker">
+  <div class="ticker-wrap">
+    <div class="ticker-inner">
+      <span class="ticker-item water">МОЙКА КРЫШ</span>
+      <span class="ticker-item">УСТРАНЕНИЕ ПРОТЕЧЕК</span>
+      <span class="ticker-item orange">БЕТОННЫЕ ФИГУРЫ</span>
+      <span class="ticker-item">ФАСАДЫ</span>
+      <span class="ticker-item water">МОЙКА КРЫШ</span>
+      <span class="ticker-item">УСТРАНЕНИЕ ПРОТЕЧЕК</span>
+      <span class="ticker-item orange">БЕТОННЫЕ ФИГУРЫ</span>
+      <span class="ticker-item">ФАСАДЫ</span>
     </div>
   </div>
-
-  <div class="hero-stats">
-    <div class="hs"><div class="hs-val">300</div><div class="hs-label">Бар давления</div></div>
-    <div class="hs"><div class="hs-val">0₽</div><div class="hs-label">Выезд и оценка</div></div>
-    <div class="hs"><div class="hs-val">2+</div><div class="hs-label">Года в деле</div></div>
-    <div class="hs"><div class="hs-val">✓</div><div class="hs-label">Договор + гарантия</div></div>
-  </div>
 </div>
 
-<!-- TICKER -->
-<div class="ticker">
-  <div class="ticker-inner">
-    <span class="ticker-item blue">МОЙКА КРЫШ</span>
-    <span class="ticker-item">УСТРАНЕНИЕ ПРОТЕЧЕК</span>
-    <span class="ticker-item gold">БЕТОННЫЕ ФИГУРЫ</span>
-    <span class="ticker-item">ФАСАДЫ И СРУБЫ</span>
-    <span class="ticker-item blue">ТРОТУАРНАЯ ПЛИТКА</span>
-    <span class="ticker-item">САДОВЫЕ СКУЛЬПТУРЫ</span>
-    <span class="ticker-item gold">ВАЗОНЫ И КАШПО</span>
-    <span class="ticker-item">РАБОТАЕМ ПО ОБЛАСТИ</span>
-    <span class="ticker-item blue">МОЙКА КРЫШ</span>
-    <span class="ticker-item">УСТРАНЕНИЕ ПРОТЕЧЕК</span>
-    <span class="ticker-item gold">БЕТОННЫЕ ФИГУРЫ</span>
-    <span class="ticker-item">ФАСАДЫ И СРУБЫ</span>
-    <span class="ticker-item blue">ТРОТУАРНАЯ ПЛИТКА</span>
-    <span class="ticker-item">САДОВЫЕ СКУЛЬПТУРЫ</span>
-    <span class="ticker-item gold">ВАЗОНЫ И КАШПО</span>
-    <span class="ticker-item">РАБОТАЕМ ПО ОБЛАСТИ</span>
-  </div>
-</div>
-
-<!-- МОЙКА КРЫШ -->
 <section id="wash">
   <div class="container">
     <div class="rv">
-      <div class="stag blue-tag">Услуга №1</div>
-      <h2 class="stitle">Мойка крыш<br>от мха и грязи</h2>
-      <p class="ssub">Мох — это не просто некрасиво. Он разрушает кровлю изнутри, приводит к протечкам и гнили. Убираем за один выезд — крыша служит ещё 10 лет.</p>
+      <div class="stag water">Океан чистоты</div>
+      <h2 class="stitle" style="color:var(--water-dark)">Мойка крыш<br>от мха и грязи</h2>
+      <p class="ssub">Погрузитесь в мир идеальной чистоты. Вода под давлением 300 бар смывает всё лишнее.</p>
     </div>
-
     <div class="wash-grid rv">
-      <div class="wash-card">
-        <div class="wc-num">01</div>
-        <div class="wc-t">Мойка крыш</div>
-        <div class="wc-d">Шифер, металл, черепица — убираем мох, лишайник, налёт и загрязнения высоким давлением</div>
-        <span class="wc-tag">от 200₽ / м²</span>
-      </div>
-      <div class="wash-card">
-        <div class="wc-num">02</div>
-        <div class="wc-t">Устранение протечек</div>
-        <div class="wc-d">Найдём причину, устраним — продлим срок службы кровли. Выявляем скрытые повреждения</div>
-        <span class="wc-tag">500₽ рыночная</span>
-      </div>
-      <div class="wash-card">
-        <div class="wc-num">03</div>
-        <div class="wc-t">Фасады и срубы</div>
-        <div class="wc-d">Промышленное давление до 300 бар. Деревянные срубы, кирпичные фасады, бетонные стены</div>
-        <span class="wc-tag">Цена договорная</span>
-      </div>
-      <div class="wash-card">
-        <div class="wc-num">04</div>
-        <div class="wc-t">Плитка и асфальт</div>
-        <div class="wc-d">Тротуарная плитка, дворы, парковки — возвращаем первоначальный вид</div>
-        <span class="wc-tag">Цена договорная</span>
-      </div>
-      <div class="wash-card">
-        <div class="wc-num">05</div>
-        <div class="wc-t">Выезд бесплатно</div>
-        <div class="wc-d">Приедем, оценим объём, назовём точную цену. Никаких обязательств и скрытых платежей</div>
-        <span class="wc-tag">0₽</span>
-      </div>
-      <div class="wash-card">
-        <div class="wc-num">06</div>
-        <div class="wc-t">Профи-оборудование</div>
-        <div class="wc-d">Не бытовой аппарат — промышленный. Давление до 300 бар. Чистим то, что другие не могут</div>
-        <span class="wc-tag">300 бар</span>
-      </div>
+      <div class="wash-card"><div class="wc-num">01</div><div class="wc-t">Мойка крыш</div><div class="wc-d">Шифер, металл, черепица — убираем мох и налёт</div><span class="wc-tag">от 200₽ / м²</span></div>
+      <div class="wash-card"><div class="wc-num">02</div><div class="wc-t">Протечки</div><div class="wc-d">Найдём и устраним причину</div><span class="wc-tag">500₽</span></div>
+      <div class="wash-card"><div class="wc-num">03</div><div class="wc-t">Фасады</div><div class="wc-d">Срубы, кирпич, бетон</div><span class="wc-tag">Договорная</span></div>
+      <div class="wash-card"><div class="wc-num">04</div><div class="wc-t">Плитка</div><div class="wc-d">Тротуарная плитка, дворы</div><span class="wc-tag">Договорная</span></div>
+      <div class="wash-card"><div class="wc-num">05</div><div class="wc-t">Выезд</div><div class="wc-d">Оценка бесплатно</div><span class="wc-tag">0₽</span></div>
+      <div class="wash-card"><div class="wc-num">06</div><div class="wc-t">Оборудование</div><div class="wc-d">Промышленное 300 бар</div><span class="wc-tag">Kärcher</span></div>
     </div>
-
     <div class="wash-price-block rv">
-      <div class="wp-row">
-        <div>
-          <div class="wp-name">Крыша от мха</div>
-          <div class="wp-note">Любой тип покрытия</div>
-        </div>
-        <div>
-          <div class="wp-price">200₽</div>
-          <div class="wp-note">от / м²</div>
-        </div>
-      </div>
-      <div class="wp-row dark">
-        <div>
-          <div class="wp-name" style="color:#fff">Протечки</div>
-          <div class="wp-note">Рыночная цена</div>
-        </div>
-        <div>
-          <div class="wp-price">500₽</div>
-          <div class="wp-note">за работу</div>
-        </div>
-      </div>
+      <div class="wp-row"><div><div class="wp-name">Крыша от мха</div><div class="wp-note">Любое покрытие</div></div><div><div class="wp-price">200₽</div><div class="wp-note">м²</div></div></div>
+      <div class="wp-row dark"><div><div class="wp-name" style="color:#fff">Протечки</div><div class="wp-note">Рыночная</div></div><div><div class="wp-price">500₽</div><div class="wp-note">работа</div></div></div>
     </div>
   </div>
 </section>
 
-<!-- БЕТОННЫЕ ФИГУРЫ -->
 <section id="sculpt">
   <div class="container">
     <div class="sculpt-main">
       <div class="sculpt-img-wrap rv">
-        <img src="lion.jpg" alt="Бетонный лев" class="sculpt-img">
-        <div class="sculpt-badge">В наличии</div>
+        <div class="sculpt-img"></div>
+        <div class="sculpt-badge">Золотое покрытие</div>
       </div>
       <div class="rv">
-        <div class="stag">Услуга №2</div>
-        <h2 class="stitle">Бетонные фигуры<br>для вашего двора</h2>
-        <p class="ssub" style="margin-bottom:24px;">Скульптуры, вазоны, кашпо — украшаем дворы, беседки, сады. Покраска в любой цвет. Можно сделать светящимися в темноте.</p>
+        <div class="stag gold">Бетон и золото</div>
+        <h2 class="stitle" style="color:#44403c">Бетонные фигуры<br>с золотым покрытием</h2>
+        <p class="ssub" style="margin-bottom:24px;color:#57534e">Индустриальный стиль и роскошь. Скульптуры для вашего двора. Покраска в любой цвет, можно сделать светящимися.</p>
         <div class="sculpt-cards">
           <div class="sc-card">
             <div class="sc-ico">🦁</div>
             <div>
               <div class="sc-name">Лев маленький</div>
-              <div class="sc-d">Высота 47 см · Вес 20 кг · Самовывоз из Аргаяша</div>
+              <div class="sc-d">Высота 47 см · Вес 20 кг · Самовывоз</div>
             </div>
-            <div class="sc-price">
-              <span class="sc-val">3 000₽</span>
-              <span class="sc-unit">за штуку</span>
-            </div>
+            <div class="sc-price"><span class="sc-val">3 000₽</span></div>
           </div>
           <div class="sc-card featured">
             <div class="sc-ico">🦁</div>
             <div>
               <div class="sc-name">Лев большой</div>
-              <div class="sc-d">Высота 75 см · Вес 90 кг · Самовывоз из Аргаяша</div>
+              <div class="sc-d">Высота 75 см · Вес 90 кг · Золото</div>
             </div>
-            <div class="sc-price">
-              <span class="sc-val">6 000₽</span>
-              <span class="sc-unit">за штуку</span>
-            </div>
+            <div class="sc-price"><span class="sc-val">6 000₽</span></div>
           </div>
           <div class="sc-card">
             <div class="sc-ico">🐘</div>
             <div>
               <div class="sc-name">Слон</div>
-              <div class="sc-d">Вес 15 кг · Отличный подарок или декор</div>
+              <div class="sc-d">Вес 15 кг · Кашпо · Любой цвет</div>
             </div>
-            <div class="sc-price">
-              <span class="sc-val">3 000₽</span>
-              <span class="sc-unit">за штуку</span>
-            </div>
+            <div class="sc-price"><span class="sc-val">3 000₽</span></div>
           </div>
           <div class="sc-card">
             <div class="sc-ico">🪴</div>
             <div>
               <div class="sc-name">Вазоны и кашпо</div>
-              <div class="sc-d">Любой размер · Покраска под заказ · Срок 7–10 дней</div>
+              <div class="sc-d">Любой размер · Срок 7–10 дней</div>
             </div>
-            <div class="sc-price">
-              <span class="sc-val">ДОГ</span>
-              <span class="sc-unit">обсудим</span>
-            </div>
+            <div class="sc-price"><span class="sc-val">ДОГ</span></div>
           </div>
         </div>
       </div>
@@ -428,173 +423,106 @@ footer{background:var(--black);padding:28px 24px;}
   </div>
 </section>
 
-<!-- ГАРАНТИИ -->
-<section id="guarantee" style="padding:80px 24px;background:var(--black);position:relative;overflow:hidden;">
+<section id="guarantee">
   <div class="gt-stripe"></div>
   <div class="gt-inner">
     <div class="rv">
-      <div class="stag" style="color:var(--gold2)">
-        <span style="width:22px;height:3px;background:var(--gold2);display:inline-block;margin-right:8px;"></span>
-        Почему выбирают нас
-      </div>
+      <div class="stag water">Почему мы</div>
       <h2 class="stitle white">Работаем<br>честно</h2>
       <div class="gt-perks">
-        <div class="gt-perk">
-          <div class="gp-ico">📋</div>
-          <div><div class="gp-t">Работаем по договору</div><div class="gp-d">Все условия фиксируем документально. Документы проверены через банковское приложение.</div></div>
-        </div>
-        <div class="gt-perk">
-          <div class="gp-ico">💳</div>
-          <div><div class="gp-t">Постоплата</div><div class="gp-d">Сначала принимаете работу — потом платите. Никакой предоплаты без гарантий.</div></div>
-        </div>
-        <div class="gt-perk">
-          <div class="gp-ico">🛡️</div>
-          <div><div class="gp-t">Гарантия на результат</div><div class="gp-d">Даём гарантию на выполненные работы. Если что-то не так — исправим.</div></div>
-        </div>
-        <div class="gt-perk">
-          <div class="gp-ico">🚗</div>
-          <div><div class="gp-t">Выезжаем по всей области</div><div class="gp-d">Челябинск и Челябинская область. Выезд и осмотр — бесплатно, без обязательств.</div></div>
-        </div>
+        <div class="gt-perk"><div class="gp-ico">📋</div><div><div class="gp-t">По договору</div><div class="gp-d">Документы проверены банком</div></div></div>
+        <div class="gt-perk"><div class="gp-ico">💳</div><div><div class="gp-t">Постоплата</div><div class="gp-d">Сначала работа — потом оплата</div></div></div>
+        <div class="gt-perk"><div class="gp-ico">🛡️</div><div><div class="gp-t">Гарантия</div><div class="gp-d">На все виды работ</div></div></div>
+        <div class="gt-perk"><div class="gp-ico">🚗</div><div><div class="gp-t">По области</div><div class="gp-d">Челябинск и область</div></div></div>
       </div>
     </div>
     <div class="gt-quote-block rv">
       <div class="gt-quote">"</div>
-      <div class="gt-quote-text">«Старую крышу не нужно менять — её нужно отмыть. После нашей работы она служит ещё столько же, сколько уже прослужила.»</div>
-      <div class="gt-quote-author">— Фидель Ахметжанов, мастер</div>
+      <div class="gt-quote-text">«Старую крышу не нужно менять — её нужно отмыть. После работы она служит ещё столько же.»</div>
+      <div class="gt-quote-author">— Фидель Ахметжанов</div>
     </div>
   </div>
 </section>
 
-<!-- ОТЗЫВЫ -->
 <section id="reviews">
   <div class="container">
-    <div class="rv">
-      <div class="stag blue-tag">Отзывы клиентов</div>
-      <h2 class="stitle">Что говорят<br>люди</h2>
-    </div>
+    <div class="rv"><div class="stag water">Отзывы</div><h2 class="stitle">Что говорят</h2></div>
     <div class="rev-grid rv">
-      <div class="rev-card">
-        <div class="rev-q">"</div>
-        <div class="rev-stars">★★★★★</div>
-        <div class="rev-text">Заказывала мойку крыши дачного дома. Мох убрали полностью, выглядит как новая. Цена — честная, без накруток. Фидель всё объяснил перед работой.</div>
-        <div class="rev-author">
-          <div class="rev-av">ЕС</div>
-          <div><div class="rev-name">Елена С.</div><div class="rev-date">Советский район</div></div>
-        </div>
-      </div>
-      <div class="rev-card">
-        <div class="rev-q">"</div>
-        <div class="rev-stars">★★★★★</div>
-        <div class="rev-text">Купили льва большого для дачи — все соседи завидуют. Покрасили в бронзу под заказ. Качество бетона хорошее, фигура тяжёлая, добротная. Брали самовывоз.</div>
-        <div class="rev-author">
-          <div class="rev-av">АМ</div>
-          <div><div class="rev-name">Андрей М.</div><div class="rev-date">Аргаяшский район</div></div>
-        </div>
-      </div>
-      <div class="rev-card">
-        <div class="rev-q">"</div>
-        <div class="rev-stars">★★★★★</div>
-        <div class="rev-text">Мыли фасад деревянного дома. Результат отличный — потемневшее дерево посветлело. Работали аккуратно, всё убрали за собой. Рекомендую.</div>
-        <div class="rev-author">
-          <div class="rev-av">ОК</div>
-          <div><div class="rev-name">Ольга К.</div><div class="rev-date">Ленинский район</div></div>
-        </div>
-      </div>
+      <div class="rev-card"><div class="rev-q">"</div><div class="rev-stars">★★★★★</div><div class="rev-text">Крыша как новая! Мох убрали полностью, цена честная.</div><div class="rev-author"><div class="rev-av">ЕС</div><div><div class="rev-name">Елена С.</div><div class="rev-date">Советский р-н</div></div></div></div>
+      <div class="rev-card"><div class="rev-q">"</div><div class="rev-stars">★★★★★</div><div class="rev-text">Лев золотой — все соседи завидуют! Качество отличное.</div><div class="rev-author"><div class="rev-av">АМ</div><div><div class="rev-name">Андрей М.</div><div class="rev-date">Аргаяш</div></div></div></div>
+      <div class="rev-card"><div class="rev-q">"</div><div class="rev-stars">★★★★★</div><div class="rev-text">Мыли фасад — результат супер! Рекомендую.</div><div class="rev-author"><div class="rev-av">ОК</div><div><div class="rev-name">Ольга К.</div><div class="rev-date">Ленинский р-н</div></div></div></div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
 <section id="cta">
   <div class="cta-inner container">
     <div class="rv">
-      <div class="cta-stag">Готовы начать?</div>
+      <div class="cta-stag">Готовы?</div>
       <div class="cta-title">Звоните —<br>приедем<br>бесплатно</div>
-      <div class="cta-desc">Осмотрим объект, назовём точную цену и сроки. Без обязательств, без предоплаты.</div>
+      <div class="cta-desc">Осмотрим, назовём цену. Без предоплаты.</div>
       <div style="display:flex;flex-direction:column;gap:10px;max-width:320px;">
-        <a href="tel:+79085715503" class="btn-dark" style="text-align:center;">📞 +7 (908) 571-55-03</a>
-        <a href="https://wa.me/79085715503" class="btn-dark" style="text-align:center;background:#1a1a1a;" target="_blank">💬 Написать в WhatsApp</a>
-      </div>
-    </div>
-    <div class="cta-right rv">
-      <div class="cta-bignum">✓</div>
-      <div class="cta-card">
-        <div class="cc-top">МАСТЕР ФИДЕЛЬ · ЧЕЛЯБИНСК</div>
-        <div class="cc-name">ЧТО ВХОДИТ<br>В ВЫЕЗД</div>
-        <div class="cc-items">
-          <div class="cc-item"><span class="cc-item-label">Осмотр объекта</span><span class="cc-item-val">Бесплатно</span></div>
-          <div class="cc-item"><span class="cc-item-label">Расчёт стоимости</span><span class="cc-item-val">Бесплатно</span></div>
-          <div class="cc-item"><span class="cc-item-label">Договор</span><span class="cc-item-val">Включён</span></div>
-          <div class="cc-item"><span class="cc-item-label">Гарантия</span><span class="cc-item-val">Включена</span></div>
-          <div class="cc-item"><span class="cc-item-label">Оплата</span><span class="cc-item-val">После сдачи</span></div>
-        </div>
+        <a href="tel:+79085715503" class="btn-dark">📞 +7 (908) 571-55-03</a>
+        <a href="https://wa.me/79085715503" class="btn-dark" style="background:#1a1a1a;color:#fff">💬 WhatsApp</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- КОНТАКТЫ -->
 <section id="contacts">
   <div class="container">
-    <div class="rv">
-      <div class="stag">Контакты</div>
-      <h2 class="stitle">Свяжитесь<br>с нами</h2>
-    </div>
+    <div class="rv"><div class="stag water">Контакты</div><h2 class="stitle">Свяжитесь</h2></div>
     <div class="contacts-grid rv">
-      <div class="clink-wrap">
-        <a href="tel:+79085715503" class="clink">
-          <div class="cl-ico">📞</div>
-          <div><div class="cl-label">Телефон</div><div class="cl-val">+7 (908) 571-55-03</div></div>
-        </a>
-        <a href="https://wa.me/79085715503" class="clink" target="_blank">
-          <div class="cl-ico">💬</div>
-          <div><div class="cl-label">WhatsApp</div><div class="cl-val">Написать сообщение</div></div>
-        </a>
-        <a href="https://www.avito.ru" class="clink" target="_blank">
-          <div class="cl-ico">🛒</div>
-          <div><div class="cl-label">Авито</div><div class="cl-val">Фидель Ахметжанов</div></div>
-        </a>
-        <div class="clink" style="cursor:default;">
-          <div class="cl-ico">📍</div>
-          <div><div class="cl-label">Адрес</div><div class="cl-val">Челябинск, р-н Советский, пл. Революции</div></div>
-        </div>
+      <div>
+        <a href="tel:+79085715503" class="clink"><div class="cl-ico">📞</div><div><div class="cl-label">Телефон</div><div class="cl-val">+7 (908) 571-55-03</div></div></a>
+        <a href="https://wa.me/79085715503" class="clink"><div class="cl-ico">💬</div><div><div class="cl-label">WhatsApp</div><div class="cl-val">Написать</div></div></a>
+        <div class="clink"><div class="cl-ico">📍</div><div><div class="cl-label">Адрес</div><div class="cl-val">Челябинск, Советский р-н</div></div></div>
         <div class="avito-block">
-          <div class="ab-title">Работаем по всей области</div>
-          <div class="ab-desc">Выезжаем в любой район Челябинской области. Стоимость выезда — уточняйте при звонке.</div>
+          <div style="font-family:'Bebas Neue';font-size:20px;margin-bottom:8px;">Работаем по области</div>
           <div class="area-tags">
             <span class="area-tag">Челябинск</span>
             <span class="area-tag">Копейск</span>
             <span class="area-tag">Аргаяш</span>
-            <span class="area-tag">Сосновский р-н</span>
-            <span class="area-tag">Еткульский р-н</span>
+            <span class="area-tag">Сосновский</span>
             <span class="area-tag">Вся область</span>
           </div>
         </div>
       </div>
-      <div class="rv" style="background:var(--off);border:3px solid var(--black);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;padding:40px;text-align:center;min-height:320px;">
+      <div style="background:var(--off);border:3px solid var(--black);padding:40px;text-align:center;min-height:320px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;">
         <div style="font-size:56px;">🗺️</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;">Челябинск<br>и область</div>
-        <div style="font-size:13px;color:var(--gray);line-height:1.6;max-width:200px;">Выезд и оценка — бесплатно. Позвоните и мы всё согласуем.</div>
-        <a href="tel:+79085715503" class="btn-gold" style="margin-top:8px;">Позвонить сейчас</a>
+        <div style="font-family:'Bebas Neue';font-size:22px;">Челябинск<br>и область</div>
+        <div style="font-size:13px;color:var(--gray);max-width:200px;">Выезд 0₽. Позвоните!</div>
+        <a href="tel:+79085715503" class="btn-orange" style="margin-top:8px;">Позвонить</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-in">
     <div class="footer-logo">МАСТЕР <span class="accent">ФИДЕЛЬ</span></div>
-    <div class="footer-copy">© 2024 · Мойка крыш и бетонные фигуры · Челябинск</div>
-    <a href="https://nizamov-tech.vercel.app" class="footer-link" target="_blank">Сайт: Nizamov.tech</a>
+    <div class="footer-copy">© 2024 · Челябинск</div>
   </div>
 </footer>
 
 <script>
+// Water drops
+const washSection = document.getElementById('wash');
+for(let i=0; i<30; i++){
+  const drop = document.createElement('div');
+  drop.className = 'water-drop';
+  drop.style.left = Math.random() * 100 + '%';
+  drop.style.animationDuration = (5 + Math.random() * 10) + 's';
+  drop.style.animationDelay = Math.random() * 5 + 's';
+  washSection.appendChild(drop);
+}
+
+// Scroll reveal
 const obs = new IntersectionObserver(es => {
-  es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('vis'); } });
-}, { threshold: 0.1 });
+  es.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); });
+}, {threshold: 0.1});
 document.querySelectorAll('.rv').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
+
